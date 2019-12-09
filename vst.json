@@ -1,0 +1,15 @@
+{
+  "devServer": {
+    "host": "172.18.63.133",
+    "port": 9000
+  },
+  "resolve": {
+    "alias": {
+
+    },
+    "modules": [
+    ]
+  },
+  "output": "dist",
+  "publicPath": "/"
+}
