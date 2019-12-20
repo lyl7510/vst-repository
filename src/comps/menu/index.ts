@@ -1,4 +1,4 @@
-import Menu, {MenuProps} from 'antd/es/menu';
+import Menu, {MenuProps , ClickParam} from 'antd/es/menu';
 import "antd/es/menu/style";
 
 const VstMenu = Menu;
@@ -9,5 +9,6 @@ export {
     Item as VstItem,
     SubMenu as VstSubMenu,
     ItemGroup as VstItemGroup,
-    MenuProps as VstMenuProps
+    MenuProps as VstMenuProps,
+    ClickParam
 }

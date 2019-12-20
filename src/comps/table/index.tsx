@@ -5,7 +5,7 @@ interface IvstTableProps<T = {}> extends ItableProps<T> {
 
 }
 
-export default class VstTable extends Component<IvstTableProps> {
+export default class VstTable extends Component<IvstTableProps ,{}> {
 
     public static defaultProps = {
         pagination: false

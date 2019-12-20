@@ -24,7 +24,7 @@ export default function asyncComponentList(imports: RouterType[]): any {
                         routers.map((router:RouterType ,index)=>{
                             return <Route key={index} exact path={router.path} component={router.component}></Route>
                         })
-                    }
+                     }
                 </HashRouter>
             )
         }

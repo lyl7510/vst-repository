@@ -1,60 +1,79 @@
-import Vst, {Component} from "../../vst";
-import {VstMenu, VstItem, VstSubMenu} from './../../comps/menu'
+import Vst, {Component, Iresult} from "../../vst";
+import {VstMenu, VstItem, VstSubMenu, ClickParam} from './../../comps/menu'
+import treeUtils, {ItreeConfig} from "./../../utils/TreeUtils";
+
 import VstIcon from './../../comps/icon';
 
-export default class VsbMenu extends Component<{}, {}> {
+export interface Idesign {
+    url: string;
+    param?: { [name: string]: any },
+    config: ItreeConfig
+}
 
-    constructor(props: {}) {
+export interface VsbMenuProps {
+    design: Idesign;
+    onClick?: (param: ClickParam) => void;
+}
+
+export interface VsbMenuState {
+    dataSet: any[];
+}
+
+export default class VsbMenu extends Component<VsbMenuProps, VsbMenuState> {
+
+    constructor(props: VsbMenuProps) {
         super(props);
+        this.state = {
+            dataSet: []
+        };
     }
 
-    render(): Vst.Element {
-        return <VstMenu
-            mode="inline"
-            theme="dark"
-        >
-            <VstItem key="1">
-                <VstIcon type="pie-chart"/>
-                <span>Option 1</span>
-            </VstItem>
-            <VstItem key="2">
-                <VstIcon type="desktop"/>
-                <span>Option 2</span>
-            </VstItem>
-            <VstItem key="3">
-                <VstIcon type="inbox"/>
-                <span>Option 3</span>
-            </VstItem>
-            <VstSubMenu
-                key="sub1"
-                title={
-                    <span>
-                <VstIcon type="mail"/>
-                <span>Navigation One</span>
-              </span>
+    public componentWillMount(): void {
+        super.requestData(this.props.design.url, this.props.design.param).then((result: Iresult) => {
+            if (result && result.code === 100) {
+                const dataSet = treeUtils.generTreeData(result.data, this.props.design.config);
+                this.setState({
+                    dataSet
+                });
+            }
+        });
+    }
+
+    public renderChildren(item: any, config: ItreeConfig): Vst.Element {
+        return (<VstSubMenu key={item[config.value]} title={
+            <span>
+                    <VstIcon type={item[config.icon]}/>
+                    <span>{item[config.label]}</span>
+                  </span>
+        }>
+        {
+            item.children.map((child: any) => {
+                if (child.children && child.children.length > 0) {
+                    return this.renderChildren(child, config);
+                } else {
+                    return <VstItem key={child[config.value]}>{child[config.label]}</VstItem>
                 }
-            >
-                <VstItem key="5">Option 5</VstItem>
-                <VstItem key="6">Option 6</VstItem>
-                <VstItem key="7">Option 7</VstItem>
-                <VstItem key="8">Option 8</VstItem>
-            </VstSubMenu>
-            <VstSubMenu
-                key="sub2"
-                title={
-                    <span>
-                <VstIcon type="appstore"/>
-                <span>Navigation Two</span>
-              </span>
-                }
-            >
-                <VstItem key="9">Option 9</VstItem>
-                <VstItem key="10">Option 10</VstItem>
-                <VstSubMenu key="sub3" title="Submenu">
-                    <VstItem key="11">Option 11</VstItem>
-                    <VstItem key="12">Option 12</VstItem>
-                </VstSubMenu>
-            </VstSubMenu>
-        </VstMenu>;
+            })
+        }
+        </VstSubMenu>)
+    }
+
+    public render(): Vst.Element {
+        const {dataSet} = this.state;
+        const {config} = this.props.design;
+        return (<VstMenu mode="inline" theme="dark" onClick={this.props.onClick}>
+            {
+                dataSet.map((item: any) => {
+                    if (item.children && item.children.length > 0) {
+                        return this.renderChildren(item, config);
+                    } else {
+                        return <VstItem key={item[config.value]}>
+                            <VstIcon type={item[config.icon]}/>
+                            <span>{item[config.label]}</span>
+                        </VstItem>
+                    }
+                })
+            }
+        </VstMenu>);
     }
 }
