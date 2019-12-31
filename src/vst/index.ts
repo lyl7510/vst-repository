@@ -18,16 +18,7 @@ export interface Iresult {
 }
 
 declare namespace Vst {
-    type Element =
-        React.ReactElement<any, string | React.JSXElementConstructor<any>>
-        | string
-        | number
-        | {}
-        | React.ReactNodeArray
-        | React.ReactPortal
-        | boolean
-        | null
-        | undefined;
+    type Element = JSX.Element;
     type ComponentType = React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
     type ChangeEvent<T> = React.ChangeEvent<T>;
     type ReactNode = React.ReactNode;

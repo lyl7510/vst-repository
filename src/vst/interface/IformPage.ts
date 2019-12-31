@@ -1,3 +1,4 @@
+/*
 import Vst from "../index";
 import VstForm, {Iform, Irule} from "../../comps/form";
 
@@ -22,4 +23,4 @@ interface IformPage<P, S extends IformPageState> {
     cancle?(): void;
 }
 
-export default IformPage;
+export default IformPage;*/

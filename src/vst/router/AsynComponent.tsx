@@ -7,8 +7,7 @@ interface IasynComponentState {
 
 export interface RouterType extends IasynComponentState{
     path: string;
-    children: RouterType[]
-
+    children: RouterType[];
 }
 
 export default function asynComponent(importComponent:() => Promise<{default: React.ComponentType<any>}>) : React.ComponentType<any>{

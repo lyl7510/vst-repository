@@ -7,7 +7,7 @@ import VstMessage from "./../../comps/message";
 
 const history = createHashHistory();
 
-export default abstract class Component<P extends {}, S extends {}> extends React.Component<P, S> {
+export default class Component<P extends {}, S extends {}> extends React.Component<P, S> {
 
     constructor(props: P) {
         super(props);
@@ -23,5 +23,5 @@ export default abstract class Component<P extends {}, S extends {}> extends Reac
         history.push(url);
     }
 
-    public abstract render(): Vst.Element;
+    public render(): Vst.Element;
 }

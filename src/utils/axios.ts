@@ -1,7 +1,6 @@
 import axios from 'axios';
 import projectConfig from "../config/ProjectConfig";
 
-axios.defaults.withCredentials = true;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
 
 axios.interceptors.response.use((response: any) => {
@@ -16,7 +15,7 @@ axios.interceptors.response.use((response: any) => {
     }
 }, (error) => {
     return Promise.reject(error)
-})
+});
 
 export default axios;
 

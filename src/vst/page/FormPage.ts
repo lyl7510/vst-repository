@@ -1,3 +1,4 @@
+/*
 import Vst, {Component} from "../index";
 import VstForm, {Iform} from "../../comps/form";
 import IformPage ,{IformPageState} from "./../interface/IformPage";
@@ -5,6 +6,8 @@ import IformPage ,{IformPageState} from "./../interface/IformPage";
 export default abstract class FormPage<P extends {}, S extends IformPageState> extends Component<{}, IformPageState> implements IformPage<{} , IformPageState> {
 
     public myForm: VstForm = null;
+
+    public span: number = 6;
 
     public onChange(name: string, e: Vst.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void {
         const newForm: Iform = {};
@@ -30,4 +33,4 @@ export default abstract class FormPage<P extends {}, S extends IformPageState> e
 
     public abstract submit(): void;
 
-}
+}*/
