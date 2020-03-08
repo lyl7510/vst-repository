@@ -1,17 +1,16 @@
-import Vst, {Component} from "../index";
 import * as React from 'react';
 
-interface IasynComponentState {
-    component: React.ComponentType<any>
+export interface IAsynComponentState {
+    component: React.ComponentType<any>;
 }
 
-export interface RouterType extends IasynComponentState{
+export interface RouterType extends IAsynComponentState {
     path: string;
-    children: RouterType[];
+    children?: RouterType[];
 }
 
-export default function asynComponent(importComponent:() => Promise<{default: React.ComponentType<any>}>) : React.ComponentType<any>{
-    class AsynComponent extends Component<{}, IasynComponentState> {
+export default function asynComponent(importComponent: () => Promise<{ default: React.ComponentType<any> }>): React.ComponentType<any> {
+    class AsynComponent extends React.Component<{}, IAsynComponentState> {
         constructor(props: {}) {
             super(props);
             this.state = {
@@ -20,17 +19,18 @@ export default function asynComponent(importComponent:() => Promise<{default: Re
         }
 
         componentDidMount(): void {
-            importComponent().then((mod:{default: React.ComponentType<any>}) => {
+            importComponent().then((mod: { default: React.ComponentType<any> }) => {
                 this.setState({
                     component: mod.default ? mod.default : null
                 })
             });
         }
 
-        render(): Vst.Element {
+        render(): JSX.Element {
             const Comps = this.state.component;
-            return Comps ? <Comps {...this.props}>{this.props.children}</Comps>: null;
+            return Comps ? <Comps {...this.props}>{this.props.children}</Comps> : null;
         }
     }
+
     return AsynComponent;
 }

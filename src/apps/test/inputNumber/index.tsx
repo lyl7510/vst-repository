@@ -1,11 +1,11 @@
-import Vst, {Component} from "../../../vst";
-import VstInputNumber from "../../../comps/inputNumber";
+import * as React from 'react';
+import InputNumber from "../../../comps/inputNumber";
 
-interface SelectComponentState {
+export  interface SelectComponentState {
     defaultValue: number;
 }
 
-export default class SelectComponent extends Component<{}, SelectComponentState> {
+export default class InputNumberComponent extends React.Component<{}, SelectComponentState> {
 
     constructor(props: {}) {
         super(props);
@@ -15,7 +15,7 @@ export default class SelectComponent extends Component<{}, SelectComponentState>
     }
 
 
-    render(): Vst.Element {
-        return <VstInputNumber value={this.state.defaultValue}/>;
+    render(): JSX.Element {
+        return <InputNumber value={this.state.defaultValue}/>;
     }
 }

@@ -1,4 +1,4 @@
-interface IsessionUtils {
+export interface ISessionUtils {
     put: (key: string, value: string) => void;
     get: (key: string) => string;
     remove: (key: string) => void;
@@ -6,7 +6,7 @@ interface IsessionUtils {
 
 }
 
-const sessionUtils: IsessionUtils = {
+const sessionUtils: ISessionUtils = {
     put: (key: string, value: string): void => {
         sessionStorage.setItem(key, value);
     },

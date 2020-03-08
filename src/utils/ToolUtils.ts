@@ -9,3 +9,7 @@ export function isString(str: any): boolean {
 export function isFunction(fun: any): boolean {
     return Object.prototype.toString.call(fun) === '[object Function]'
 }
+
+export function isNull(obj: any): boolean {
+    return obj === null || obj === undefined || !/\S/g.test(obj);
+}

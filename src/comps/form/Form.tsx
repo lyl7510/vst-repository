@@ -1,66 +1,81 @@
-import Vst, {Component} from "../../vst/index";
+import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import FormItem, {FormItemProps, FormItemState} from "./FormItem";
+
 import "antd/es/grid/style";
 import "./style/index.less";
-import VstFormItem from "./FormItem";
 
-export interface Iform {
+export interface IForm {
     [name: string]: any;
 }
 
-export interface IruleItem {
+export interface IRuleItem {
     verify?: string | RegExp;
-    validator?: (rule, value, formData) => void;
-    message?: string;
+    validator?: (rule: IRuleItem, value: any, formData: IForm) => boolean;
+    message: string;
+
+    [name: string]: any;
 }
 
-export interface Irule {
-    [name: string]: IruleItem | IruleItem[];
+export interface IRule {
+    [name: string]: IRuleItem | IRuleItem[];
 }
 
-export interface IvstFormProps {
-    model: Iform;
-    rules: Irule
+export interface FormProps {
+    model: IForm;
+    rules?: IRule
 }
 
-export interface IvstFormState {
-    itemFields: Map<string, VstFormItem>;
-}
+export default class Form extends React.Component<FormProps, {}> {
 
-export default class VstForm extends Component<IvstFormProps, IvstFormState> {
+    public static Item: React.ComponentClass<FormItemProps, FormItemState> = FormItem;
+    public itemFields: Map<string, FormItem> = new Map<string, FormItem>();
+    private model: IForm;
 
     public static childContextTypes = {
-        formComponent: PropTypes.any
+        model: PropTypes.object,
+        rules: PropTypes.object,
+        addItemField: PropTypes.func,
+        setModel: PropTypes.func
+
     };
 
-    constructor(props: IvstFormProps) {
+    constructor(props: FormProps) {
         super(props);
-        this.state = {
-            itemFields: new Map<string, VstFormItem>()
-        }
+        this.model = this.props.model;
     }
 
-    public addItemField(name: string, vstFormItem: VstFormItem): void {
-        this.state.itemFields.set(name, vstFormItem);
+    public addItemField(name: string, formItem: FormItem): void {
+        this.itemFields.set(name, formItem);
     }
 
-    public getChildContext(): { formComponent: Component<IvstFormProps, IvstFormState> } {
-        return {formComponent: this};
+    private setModel(name: string, value: any): void {
+        const model = {};
+        model[name] = value;
+        this.model = Object.assign(this.model, model);
+    }
+
+    public getChildContext(): { model: object, rules: object, addItemField: (name: string, formItem: FormItem) => void, setModel: (name: string, value: any) => void } {
+        return {
+            model: this.model,
+            rules: this.props.rules,
+            addItemField: this.addItemField.bind(this),
+            setModel: this.setModel.bind(this)
+        };
     }
 
     public showMessage(name: string, message: string): void {
-        const vstFormItem:VstFormItem = this.state.itemFields.get(name);
-        if(vstFormItem !== null){
-            vstFormItem.showMessage(message);
+        const formItem: FormItem = this.itemFields.get(name);
+        if (formItem !== null) {
+            formItem.showMessage(message);
         }
     }
 
 
     public validate(): boolean {
-        const {itemFields} = this.state;
         let result: boolean = true;
-        for (let vstFormItem of itemFields.values()) {
-            const rs = vstFormItem.validate();
+        for (let formItem of this.itemFields.values()) {
+            const rs = formItem.validate();
             if (!rs) {
                 result = false;
             }
@@ -68,11 +83,22 @@ export default class VstForm extends Component<IvstFormProps, IvstFormState> {
         return result;
     }
 
-    private renderBaseClass(): string {
-        return "ant-row";
+    public resetFields(): void {
+        for (let formItem of this.itemFields.values()) {
+            formItem.resetField();
+        }
     }
 
-    render(): Vst.Element {
+    public getFormData(): IForm {
+        return this.model;
+    }
+
+    private renderBaseClass(): string {
+        return "ant-row ant-form ant-form-horizontal";
+    }
+
+    render(): JSX.Element {
+        console.log("FormItem render");
         return <div className={this.renderBaseClass()}>{this.props.children}</div>;
     }
 

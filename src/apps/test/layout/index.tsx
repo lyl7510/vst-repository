@@ -1,19 +1,18 @@
-import Vst, {Component} from "../../../vst";
-import {VstLayout, VstSider, VstHeader, VstContent} from "../../../comps/layout";
+import * as React from 'react';
+import Layout from "../../../comps/layout";
 
-export default class LayoutComponent extends Component<{}, {}> {
+export default class LayoutComponent extends React.Component<{}, {}> {
     constructor(props: {}) {
         super(props);
     }
 
-    render(): Vst.Element {
-        return <VstLayout>
-            <VstSider collapsed={true}>
-            </VstSider>
-            <VstLayout>
-                <VstHeader>Header</VstHeader>
-                <VstContent>Content</VstContent>
-            </VstLayout>
-        </VstLayout>;
+    render(): JSX.Element {
+        return <Layout>
+            <Layout.Header>Header</Layout.Header>
+            <Layout>
+                <Layout.Sider collapsed={true}/>
+                <Layout.Content>Content</Layout.Content>
+            </Layout>
+        </Layout>;
     }
 }

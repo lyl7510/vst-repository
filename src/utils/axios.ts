@@ -5,7 +5,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
 
 axios.interceptors.response.use((response: any) => {
     if (response.status === 200) {
-        if (response.data.code === 100 || !projectConfig.getErrorConfig()[response.data.code]) {
+        if (response.data.code === 100 || !projectConfig.errorConfig[response.data.code]) {
             return Promise.resolve(response.data)
         } else {
             return Promise.reject(response.data.code);

@@ -1,53 +1,29 @@
-import Vst, {Component} from "../../../vst";
-import VstModal from "./../../../comps/modal";
-import VstButton from "./../../../comps/button";
+import * as React from 'react';
+import DialogComponent, {DialogComponentProps, DialogComponentState} from "../../../vst/page/DialogComponent";
 
-interface DialogComponentState {
-    visible: boolean;
+export interface DialogExampleProps extends DialogComponentProps {
+
 }
 
-export default class DialogComponent extends Component<{}, DialogComponentState> {
-    constructor(props: {}) {
+export interface DialogExampleState extends DialogComponentState {
+
+}
+
+export default class DialogExample extends DialogComponent<DialogExampleProps, DialogExampleState> {
+
+    protected title: string = "测试窗口";
+    protected width: number = 400;
+
+    constructor(props: DialogExampleProps) {
         super(props);
-        this.state = {
-            visible: false
-        }
     }
 
-    showModal = () => {
-        this.setState({
-            visible: true,
-        });
-    };
-
-    handleOk = e => {
-        console.log(e);
-        this.setState({
-            visible: false,
-        });
-    };
-
-    handleCancel = e => {
-        console.log(e);
-        this.setState({
-            visible: false,
-        });
-    };
-
-    render(): Vst.Element {
-        return <div>
-            <VstButton type="primary" onClick={this.showModal}>
-                Open Modal
-            </VstButton>
-            <VstModal
-                title="Basic Modal"
-                visible={this.state.visible}
-                onOk={this.handleOk}
-                onCancel={this.handleCancel}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-            </VstModal>
-        </div>;
+    public renderContent(): JSX.Element {
+        return (<div>111111</div>)
     }
+
+    protected ok(): void {
+
+    }
+
 }

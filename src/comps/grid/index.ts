@@ -1,5 +1,5 @@
-import VstRow, {IvstRowProps, IvstRowState} from './Row';
-import VstCol, {IvstColProps} from './Col';
+import {Row, Col} from "antd/es/grid";
 import 'antd/es/grid/style'
+import "./style/index.less";
 
-export {VstRow, VstCol, IvstRowProps, IvstRowState, IvstColProps};
+export {Row, Col};

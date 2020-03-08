@@ -1,11 +1,11 @@
-import Vst, {Component} from "../../../vst";
-import VstRadio, {VstRadioGroup} from "../../../comps/radio";
+import * as React from 'react';
+import Radio from "../../../comps/radio";
 
 interface IradioComponentState {
     value: number;
 }
 
-export default class RadioComponent extends Component<{}, IradioComponentState> {
+export default class RadioComponent extends React.Component<{}, IradioComponentState> {
 
     constructor(props: {}) {
         super(props);
@@ -21,16 +21,16 @@ export default class RadioComponent extends Component<{}, IradioComponentState> 
         });
     }
 
-    public render(): Vst.Element {
+    public render(): JSX.Element {
         return (
             <div>
-                <VstRadio>Radio</VstRadio>
-                <VstRadioGroup onChange={this.onChange.bind(this)} value={this.state.value}>
-                    <VstRadio value={1}>A</VstRadio>
-                    <VstRadio value={2}>B</VstRadio>
-                    <VstRadio value={3}>C</VstRadio>
-                    <VstRadio value={4}>D</VstRadio>
-                </VstRadioGroup>
+                <Radio>Radio</Radio>
+                <Radio.Group onChange={this.onChange.bind(this)} value={this.state.value}>
+                    <Radio value={1}>A</Radio>
+                    <Radio value={2}>B</Radio>
+                    <Radio value={3}>C</Radio>
+                    <Radio value={4}>D</Radio>
+                </Radio.Group>
             </div>
         )
 

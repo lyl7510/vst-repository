@@ -1,4 +1,4 @@
-import Vst from "./../vst/index";
+import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import routers from './router';
 

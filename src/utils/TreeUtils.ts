@@ -7,7 +7,7 @@ export interface ItreeConfig {
     icon?: string;
 }
 
-class TreeUtils {
+export class TreeUtils {
     private sort(a: any, b: any, options: ItreeConfig): 1 | -1 {
         if (options.sort === 'desc') {
             return a[options.order] < b[options.order] ? 1 : -1
@@ -58,6 +58,23 @@ class TreeUtils {
         }
         return result;
     }
+
+    public isFilterTreeNode(treeArray: any[], key: string, options: ItreeConfig): any {
+        for (let i = 0; i < treeArray.length; i++) {
+            if (treeArray[i][options.value] === key) {
+                return treeArray[i];
+            } else {
+                if (treeArray[i].children && treeArray[i].children.length > 0) {
+                    const result = this.isFilterTreeNode(treeArray[i].children, key, options);
+                    if (result) {
+                        return result;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
 }
 
 const treeUtils = new TreeUtils();

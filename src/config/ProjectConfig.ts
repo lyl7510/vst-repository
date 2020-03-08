@@ -1,51 +1,22 @@
-interface Ierror {
-    [name: string]: string;
-}
+import IErrorConfig from "../vst/interface/IErrorConfig";
 
-class ProjectConfig {
-    private projectCode: string;
-    private errorConfig: Ierror = {
-
-    };
+export class ProjectConfig {
+    public projectCode = "";
+    public basePath = "/api";
+    public upload = "/system/upload";
+    public getFile = "/system/getFile";
+    public getDownload = "/system/download";
+    public getImage = "/system/image?id=";
+    public errorConfig: IErrorConfig = {};
 
     public setProjectCode(projectCode: string): void {
         this.projectCode = projectCode;
     }
 
-    public getProjectCode(): string {
-        return this.projectCode;
-    }
-
-    public assignError(errorConfig: Ierror): void {
+    public assignError(errorConfig: IErrorConfig): void {
         this.errorConfig = Object.assign(this.errorConfig, errorConfig);
     }
-
-    public getErrorConfig(): Ierror {
-        return this.errorConfig;
-    }
-
-    public getBasePath(): string {
-        return "/api";
-    }
-
-    public getUpload(): string {
-        return this.getBasePath() + "/system/upload";
-    }
-
-    public getFile(): string {
-        return "/system/getFile";
-    }
-
-    public getDownload(): string {
-        return this.getBasePath() + "/system/download";
-    }
-
-    public getImage(): string {
-        return this.getBasePath() + "/system/image?id=";
-    }
-
 }
 
 const projectConfig = new ProjectConfig();
-
-export default projectConfig
+export default projectConfig;

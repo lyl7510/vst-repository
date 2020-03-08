@@ -1,4 +1,6 @@
-import Vst, {Component} from "../index";
+import * as React from 'react';
+import {ConfigProvider} from "antd";
+import zh_CN from 'antd/es/locale-provider/zh_CN';
 import {HashRouter, Route} from "react-router-dom";
 import {RouterType} from "./AsynComponent";
 
@@ -7,8 +9,7 @@ interface IrouterComponentState {
 }
 
 export default function asyncComponentList(imports: RouterType[]): any {
-
-    return class RouterComponent extends Component<{}, IrouterComponentState> {
+    return class RouterComponent extends React.Component<{}, IrouterComponentState> {
         constructor(props: {}) {
             super(props);
             this.state = {
@@ -16,16 +17,18 @@ export default function asyncComponentList(imports: RouterType[]): any {
             }
         }
 
-        render(): Vst.Element {
+        render(): JSX.Element {
             const {routers} = this.state;
             return (
-                <HashRouter>
-                    {
-                        routers.map((router:RouterType ,index)=>{
-                            return <Route key={index} exact path={router.path} component={router.component}></Route>
-                        })
-                     }
-                </HashRouter>
+                <ConfigProvider locale={zh_CN}>
+                    <HashRouter>
+                        {
+                            routers.map((router:RouterType ,index)=>{
+                                return <Route key={index} exact path={router.path} component={router.component}></Route>
+                            })
+                         }
+                    </HashRouter>
+                </ConfigProvider>
             )
         }
     }

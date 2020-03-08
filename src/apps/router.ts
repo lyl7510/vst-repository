@@ -7,6 +7,10 @@ routers = [
         component: asynComponent(() => import('./test/layout'))
     },
     {
+        path: '/button',
+        component: asynComponent(() => import('./test/button'))
+    },
+    {
         path: '/grid',
         component: asynComponent(() => import('./test/grid'))
     },
@@ -43,20 +47,14 @@ routers = [
         component: asynComponent(() => import('./test/date'))
     },
     {
-        path: '/textarea',
-        component: asynComponent(() => import('./test/textarea'))
-    },
-    {
         path: '/form',
         component: asynComponent(() => import('./test/form'))
-    },
-    {
-        path: '/modal',
-        component: asynComponent(() => import('./test/modal'))
-    },
-    {
-        path: '/tab',
-        component: asynComponent(() => import('./test/tab'))
+    },{
+        path: '/login',
+        component: asynComponent(() => import('./test/login'))
+    },{
+        path: '/input',
+        component: asynComponent(() => import('./test/input'))
     }
 ];
 

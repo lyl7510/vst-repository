@@ -1,16 +1,17 @@
-import Vst, {Component} from "../../../vst";
-import VstSelect , {VstOption} from "../../../comps/select";
+import * as React from 'react';
+import Select from "./../../../comps/select";
+import "antd/es/select/style";
 
-export default class SelectComponent extends Component<{}, {}>{
+export default class SelectComponent extends React.Component<{}, {}>{
 
     constructor(props: {}) {
         super(props);
     }
 
-    render(): Vst.Element{
-        return <VstSelect  placeholder="Select a person">
-            <VstOption value="jack" title="dsafsalkfjsdafs">Jack</VstOption>
-            <VstOption value="lucy" title="dsafsalkfjsdafs">Lucy</VstOption>
-        </VstSelect>;
+    render(): JSX.Element{
+        return <Select placeholder="Select a person">
+                    <Select.Option value="jack" title="dsafsalkfjsdafs">Jack</Select.Option>
+                    <Select.Option value="lucy" title="dsafsalkfjsdafs">Lucy</Select.Option>
+                </Select>;
     }
 }

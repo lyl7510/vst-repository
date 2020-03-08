@@ -1,11 +1,11 @@
-import Vst, {Component} from "../../../vst";
+import * as React from 'react';
 import VstCascader from "../../../comps/cascader";
 
 interface CascaderComponentState {
     options: any[]
 }
 
-export default class CascaderComponent extends Component<{}, CascaderComponentState> {
+export default class CascaderComponent extends React.Component<{}, CascaderComponentState> {
 
     constructor(props: {}) {
         super(props);
@@ -51,7 +51,7 @@ export default class CascaderComponent extends Component<{}, CascaderComponentSt
         console.log(value)
     }
 
-    public render(): Vst.Element {
+    public render(): JSX.Element {
         return <VstCascader options={this.state.options} onChange={this.onChange.bind(this)} changeOnSelect/>;
     }
 }

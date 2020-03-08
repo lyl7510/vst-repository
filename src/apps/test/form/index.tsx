@@ -1,67 +1,45 @@
-import Vst, {Component} from "../../../vst";
-import VstForm, {VstFormItem, Iform, Irule} from "../../../comps/form";
-import VstInput from "../../../comps/input";
-import VstIcon from "../../../comps/icon";
-import {Button} from "antd";
+import * as React from 'react';
+import {Form, Input, Button ,Select} from "../../../comps";
+import FormComponent, {FormComponentProps, FormComponentState} from "../../../vst/page/FormComponent";
 
-export interface IformComponentProps {
+export default class FormExample extends FormComponent<FormComponentProps, FormComponentState> {
 
-}
-
-export interface IformComponentState {
-    myForm: Iform;
-    rules: Irule;
-}
-
-export default class FormComponent extends Component<IformComponentProps, IformComponentState> {
-
-    private myForm: VstForm = null;
-
-    constructor(props: IformComponentProps) {
+    constructor(props: FormComponentProps) {
         super(props);
         this.state = {
-            myForm: {
-                username: '',
-                password: ''
+            myForm:{
+                type:undefined,
+                name:""
             },
-            rules: {
-                "username": {verify: "required", message: "用户名不能为空"},
-                "password": {verify: "required", message: "密码不能为空"}
+            rules:{
+                name: {verify: "telphone", message: "查询条件不能为空"}
             }
         }
     }
 
-    public onChange(name: string, e: Vst.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void {
-        const newForm: Iform = {};
-        newForm[name] = e.target.value;
-        const myForm = Object.assign(this.state.myForm, newForm);
-        this.setState({
-            myForm: myForm
-        });
-        const {itemFields} = this.myForm.state;
-        itemFields.get(name).validate();
+    protected submit(): void {
+        console.log(this.myFrom.getFormData());
     }
 
-    public onClick() {
-        this.myForm.validate();
-    }
-
-    render(): Vst.Element {
-        const {username, password} = this.state.myForm;
-        return (
-            <VstForm model={this.state.myForm} rules={this.state.rules} ref={(node) => {
-                this.myForm = node;
-            }}>
-                <VstFormItem span={24} prop="username">
-                    <VstInput prefix={<VstIcon type="user"/>} placeholder="请输入用户名"
-                              onChange={this.onChange.bind(this, "username")} value={username}/>
-                </VstFormItem>
-                <VstFormItem span={24} prop="password">
-                    <VstInput prefix={<VstIcon type="user"/>} placeholder="请输入密码"
-                              onChange={this.onChange.bind(this, "password")} value={password} type="password"/>
-                </VstFormItem>
-                <Button onClick={this.onClick.bind(this)}>提交</Button>
-            </VstForm>
+    render(): JSX.Element {
+        const {myForm} = this.state;
+        return (<React.Fragment>
+                <Form model={this.state.myForm} rules={this.state.rules} ref={(node) => this.myFrom = node}>
+                    <Form.Item span={6} prop="type" label="模块类型">
+                        <Select placeholder="请选择模块类型" value={myForm.type}>
+                            <Select.Option value="1">Web端</Select.Option>
+                            <Select.Option value="2">APP端</Select.Option>
+                        </Select>
+                    </Form.Item>
+                    <Form.Item span={6} prop="name" label="名称">
+                        <Input placeholder="请输入名称" value={myForm.name}/>
+                    </Form.Item>
+                    <Form.Item span={6}>
+                        <Button type="primary" onClick={this.handleSubmit.bind(this)}>提交</Button>
+                        <Button onClick={this.resetFields.bind(this)}>重置</Button>
+                    </Form.Item>
+                </Form>
+            </React.Fragment>
         );
     }
 }

@@ -1,7 +1,7 @@
-import Vst, {Component} from "../../../vst";
-import VstCheckbox, {VstCheckboxGroup} from "../../../comps/checkbox";
+import * as React from 'react';
+import Checkbox from "../../../comps/checkbox";
 
-interface CheckBoxComponentState {
+export interface CheckBoxComponentState {
     checkedList: string[];
     indeterminate: boolean;
     checkAll: boolean;
@@ -10,7 +10,7 @@ interface CheckBoxComponentState {
 const plainOptions = ['Apple', 'Pear', 'Orange'];
 const defaultCheckedList = ['Apple', 'Orange'];
 
-export default class CheckBoxComponent extends Component<{}, CheckBoxComponentState> {
+export default class CheckBoxComponent extends React.Component<{}, CheckBoxComponentState> {
 
     constructor(props: {}) {
         super(props);
@@ -37,16 +37,16 @@ export default class CheckBoxComponent extends Component<{}, CheckBoxComponentSt
         });
     }
 
-    public render(): Vst.Element {
+    public render(): JSX.Element {
         return (
             <div>
-                <VstCheckbox
+                <Checkbox
                     indeterminate={this.state.indeterminate}
                     onChange={this.onCheckAllChange.bind(this)}
                     checked={this.state.checkAll}>
                     Check all
-                </VstCheckbox>
-                <VstCheckboxGroup
+                </Checkbox>
+                <Checkbox.Group
                     options={plainOptions}
                     value={this.state.checkedList}
                     onChange={this.onChange.bind(this)}

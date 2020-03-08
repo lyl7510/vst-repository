@@ -1,14 +1,13 @@
-import VstForm, {IvstFormProps, IvstFormState, Iform, Irule} from "./Form";
-import VstFormItem, {IvstFormItemProps, IvstFormItemState} from "./FormItem";
+import Form , {FormProps ,IForm , IRuleItem , IRule} from "./Form";
+import {FormItemProps, FormItemState} from "./FormItem";
 import "antd/es/form/style";
 
-export default VstForm;
+export default Form;
 export {
-    VstFormItem,
-    IvstFormProps,
-    IvstFormState,
-    IvstFormItemProps,
-    IvstFormItemState,
-    Iform,
-    Irule
+    FormProps,
+    IForm,
+    IRuleItem,
+    IRule,
+    FormItemProps,
+    FormItemState
 }
