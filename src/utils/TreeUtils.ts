@@ -9,7 +9,7 @@ export interface ItreeConfig {
 
 export class TreeUtils {
     private sort(a: any, b: any, options: ItreeConfig): 1 | -1 {
-        if (options.sort === 'desc') {
+        if (options.sort && options.sort.toLowerCase() === 'desc') {
             return a[options.order] < b[options.order] ? 1 : -1
         } else {
             return a[options.order] > b[options.order] ? 1 : -1

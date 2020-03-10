@@ -12,11 +12,11 @@ import Layout from "./layout";
 import Menu from "./menu";
 import message from "./message";
 import Modal from "./modal";
-import Radio from "./radio";
+import Radio from "./radio/index";
 import Select from "./select/index";
 import Tabs from "./tab";
 import Table from "./table";
-import TreeSelect from "./treeSelect";
+import TreeSelect from "./treeSelect/index";
 import Pagination from "./pagination";
 import Divider from "./divider";
 export {

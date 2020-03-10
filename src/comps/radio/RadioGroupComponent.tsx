@@ -1,10 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
+import Radio, {RadioGroupProps, RadioGroupState} from "antd/es/radio";
 import * as PropTypes from "prop-types";
-import Input, {InputProps, InputState} from "antd/es/input/Input";
+import {RadioChangeEvent} from "antd/es/radio/interface";
 
-import "antd/es/input/style";
-
-export default class InputComponent extends React.Component<InputProps, InputState> {
+export default class RadioGroupComponent extends React.Component<RadioGroupProps, RadioGroupState> {
 
     public static contextTypes = {
         value: PropTypes.any,
@@ -12,11 +11,7 @@ export default class InputComponent extends React.Component<InputProps, InputSta
         setResetFieldFun: PropTypes.func
     };
 
-    public static defaultProps = {
-        allowClear: true
-    };
-
-    constructor(props: InputProps) {
+    constructor(props: RadioGroupProps) {
         super(props);
         this.state = {
             value: this.props.value
@@ -35,8 +30,9 @@ export default class InputComponent extends React.Component<InputProps, InputSta
         }
     }
 
-    public onChange(e: React.ChangeEvent<HTMLInputElement>): void {
+    public onChange(e: RadioChangeEvent): void {
         const value = e.target.value;
+        console.log('value' , value);
         const {onChange} = this.context;
         this.setState({
             value: value
@@ -53,8 +49,9 @@ export default class InputComponent extends React.Component<InputProps, InputSta
         onChange && onChange(defaultValue);
     }
 
-    render(): JSX.Element {
+    public render(): JSX.Element {
         const {value} = this.state;
-        return <Input {...this.props} value={value} onChange={this.onChange.bind(this)}/>;
+        return <Radio.Group {...this.props} value={value}
+                            onChange={this.onChange.bind(this)}>{this.props.children}</Radio.Group>
     }
 }

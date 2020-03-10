@@ -41,6 +41,9 @@ export default abstract class QueryPagerComponent<P extends QueryPagerComponentP
 
     protected resetFields(): void {
         this.myFrom.resetFields();
+        this.pager.setParam(this.state.model);
+        this.pager.setPagerNumber(1);
+        this.pager.query();
     }
 
     public componentDidMount(): void {

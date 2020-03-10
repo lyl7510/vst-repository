@@ -9,8 +9,8 @@ export interface DialogFormComponentProps {
 }
 
 export interface DialogFormComponentState {
-    myForm: IForm;
-    rules: IRule;
+    myForm?: IForm;
+    rules?: IRule;
     visible?: boolean;
 }
 
@@ -28,13 +28,16 @@ export default abstract class DialogFormComponent<P extends DialogFormComponentP
     protected constructor(props: DialogFormComponentProps) {
         super(props);
         this.state = {
-            visible:false,
+            visible: false,
             myForm: {},
             rules: {}
         }
     }
 
     public open(paramMap: any = {}): void {
+        if (this.myFrom) {
+            this.myFrom.resetFields();
+        }
         const promise = this.beforeInit(paramMap);
         if (promise) {
             promise.then(() => {

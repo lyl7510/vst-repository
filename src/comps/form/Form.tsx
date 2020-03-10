@@ -98,7 +98,6 @@ export default class Form extends React.Component<FormProps, {}> {
     }
 
     render(): JSX.Element {
-        console.log("FormItem render");
         return <div className={this.renderBaseClass()}>{this.props.children}</div>;
     }
 

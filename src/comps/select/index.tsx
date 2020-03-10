@@ -31,29 +31,33 @@ export default class SelectComponent extends React.Component<SelectProps, Select
     }
 
     public componentWillMount(): void {
-        const {value, setResetFieldFun} = this.context;
-        if (value) {
-            this.setState({
-                value: value
-            });
-        }
-        if (setResetFieldFun) {
-            setResetFieldFun(this.resetField.bind(this));
-        }
+            const {value, setResetFieldFun} = this.context;
+            if (value) {
+                this.setState({
+                    value: value
+                });
+            }
+            if (setResetFieldFun) {
+                setResetFieldFun(this.resetField.bind(this));
+            }
     }
 
     private resetField(defaultValue: any): void {
         this.setState({
             value: defaultValue
         });
+        const {onChange} = this.context;
+        onChange && onChange(defaultValue);
     }
 
-    public onChange(p_value: number | string): void {
+    public onChange(p_value: number | string ,option: React.ReactElement<any> | React.ReactElement<any>[]): void {
         const {onChange} = this.context;
         this.setState({
             value: p_value
         });
         onChange && onChange(p_value);
+        this.props.onChange && this.props.onChange(p_value , option);
+
     }
 
     render(): JSX.Element {

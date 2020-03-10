@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Radio from "../../../comps/radio";
+import Radio from "../../../comps/radio/index";
 
 interface IradioComponentState {
     value: number;

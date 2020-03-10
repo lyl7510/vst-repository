@@ -1,5 +1,5 @@
 import * as React from 'react';
-import TreeSelect from "../../../comps/treeSelect";
+import TreeSelect from "../../../comps/treeSelect/index";
 
 interface ItreeSelectComponentState {
     value:string;

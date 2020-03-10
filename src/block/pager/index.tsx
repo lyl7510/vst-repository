@@ -79,6 +79,11 @@ export default class VsbPager extends BaseComponent<VsbPagerProps, VsbPagerState
         this.search(pagerNumber, pagerSize);
     }
 
+    public setPagerNumber(pagerNumber: number): void {
+        const {pagerSize} = this.state;
+        this.search(pagerNumber, pagerSize);
+    }
+
     public search(pagerNumber: number, pagerSize: number): void {
         const {url} = this.props.design;
         const paramMap = Object.assign({

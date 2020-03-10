@@ -34,6 +34,7 @@ export default abstract class FormComponent<P extends FormComponentProps, S exte
 
     protected resetFields(): void {
         this.myFrom.resetFields();
+        console.log(this.state.myForm);
     }
 
     protected abstract submit(): void;

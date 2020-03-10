@@ -4,6 +4,7 @@ import * as ToolUtils from "./../../utils/ToolUtils";
 import regular from "./regular";
 
 import * as PropTypes from "prop-types";
+import {debug} from "webpack";
 
 export interface FormItemProps {
     label?: string;
@@ -57,6 +58,10 @@ export default class FormItem extends React.Component<FormItemProps, FormItemSta
         this.setState({
             message: ""
         });
+        const {setModel} = this.context;
+        if (setModel && ToolUtils.isFunction(setModel)) {
+            setModel(this.props.prop, this.defaultValue);
+        }
     }
 
     public getChildContext(): { value: any, onChange: (value: any) => void, setResetFieldFun: (defaultValue: any) => void } {

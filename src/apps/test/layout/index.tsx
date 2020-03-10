@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Layout from "../../../comps/layout";
 
+
 export default class LayoutComponent extends React.Component<{}, {}> {
     constructor(props: {}) {
         super(props);
