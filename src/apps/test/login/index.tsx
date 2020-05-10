@@ -13,7 +13,9 @@ export default class Login extends FormComponent<FormComponentProps, FormCompone
                 password: ""
             },
             rules: {
-                username: [{verify: "required", message: "用户名不能为空"}],
+                username: [{validator: (value:any)=>{
+                    return true;
+                    }, message: "用户名不能为空"}],
                 password: {verify: "required", message: "密码不能为空"}
             }
         }

@@ -55,6 +55,9 @@ routers = [
     },{
         path: '/input',
         component: asynComponent(() => import('./test/input'))
+    },{
+        path: '/pager',
+        component: asynComponent(() => import('./test/pager'))
     }
 ];
 

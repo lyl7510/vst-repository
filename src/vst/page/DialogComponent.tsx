@@ -1,9 +1,9 @@
 import * as React from 'react';
-import BaseComponent from "./BaseComponent";
+import BaseComponent, {BaseComponentProps} from "./BaseComponent";
 import Modal from "./../../comps/modal";
 
-export interface DialogComponentProps {
-
+export interface DialogComponentProps extends BaseComponentProps{
+    callback?: (option?: any) => void;
 }
 
 export interface DialogComponentState {

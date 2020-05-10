@@ -1,7 +1,7 @@
-import BaseComponent from "./BaseComponent";
+import BaseComponent, {BaseComponentProps} from "./BaseComponent";
 import Form, {IForm, IRule} from "./../../comps/form";
 
-export interface FormComponentProps {
+export interface FormComponentProps extends BaseComponentProps{
 
 }
 
@@ -30,11 +30,6 @@ export default abstract class FormComponent<P extends FormComponentProps, S exte
         if (this.validate()) {
             this.submit();
         }
-    }
-
-    protected resetFields(): void {
-        this.myFrom.resetFields();
-        console.log(this.state.myForm);
     }
 
     protected abstract submit(): void;

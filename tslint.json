@@ -11,7 +11,7 @@
   },
   "rules": {
     "ordered-imports": false,
-    "interface-name" : [true, "never-prefix"],
+    "interface-name" : [false, "never-prefix"],
     "object-literal-sort-keys": false,
     "no-console": false,
     "no-debugger": false,

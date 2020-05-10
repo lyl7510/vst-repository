@@ -41,16 +41,17 @@ export default class InputComponent extends React.Component<InputProps, InputSta
         this.setState({
             value: value
         });
-        onChange && onChange(value);
+        onChange && onChange(value , true);
         this.props.onChange && this.props.onChange(e);
     }
 
     private resetField(defaultValue: any): void {
+        defaultValue = defaultValue == "" || defaultValue == null ? undefined : defaultValue;
         this.setState({
             value: defaultValue
         });
         const {onChange} = this.context;
-        onChange && onChange(defaultValue);
+        onChange && onChange(defaultValue, false);
     }
 
     render(): JSX.Element {

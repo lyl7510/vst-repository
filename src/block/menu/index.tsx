@@ -2,7 +2,7 @@ import * as React from 'react';
 import Icon from '../../comps/icon';
 import IResult from "../../vst/interface/IResult";
 import Menu, {ClickParam} from './../../comps/menu'
-import BaseComponent from "../../vst/page/BaseComponent";
+import BaseComponent, {BaseComponentProps} from "../../vst/page/BaseComponent";
 import IRequestParam from "../../vst/interface/IRequestParam";
 import treeUtils, {ItreeConfig} from "./../../utils/TreeUtils";
 
@@ -15,7 +15,7 @@ export interface IMenuDesign {
 
 export {ClickParam};
 
-export interface VsbMenuProps {
+export interface VsbMenuProps extends BaseComponentProps{
     design: IMenuDesign;
     onClick?: (treeItem: any, param: ClickParam) => void;
 }

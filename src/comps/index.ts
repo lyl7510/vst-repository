@@ -1,7 +1,7 @@
 import Button from "./button/";
 import Cascader from "./cascader";
 import Checkbox from "./checkbox";
-import DatePicker from "./date";
+import DatePicker from "./date/index";
 import Dropdown from "./dropdown";
 import Form from "./form";
 import * as Grid from "./grid";
@@ -19,6 +19,8 @@ import Table from "./table";
 import TreeSelect from "./treeSelect/index";
 import Pagination from "./pagination";
 import Divider from "./divider";
+import TextArea from "./textarea";
+
 export {
     Button,
     Cascader,
@@ -40,5 +42,6 @@ export {
     Table,
     TreeSelect,
     Pagination,
-    Divider
+    Divider,
+    TextArea
 };

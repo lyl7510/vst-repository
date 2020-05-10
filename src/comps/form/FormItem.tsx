@@ -2,9 +2,7 @@ import * as React from 'react';
 import {IRuleItem} from "./Form";
 import * as ToolUtils from "./../../utils/ToolUtils";
 import regular from "./regular";
-
 import * as PropTypes from "prop-types";
-import {debug} from "webpack";
 
 export interface FormItemProps {
     label?: string;
@@ -92,13 +90,15 @@ export default class FormItem extends React.Component<FormItemProps, FormItemSta
         });
     }
 
-    private onChange(p_value: any): void {
+    private onChange(p_value: any, valid: boolean): void {
         this.value = p_value;
         const {setModel} = this.context;
         if (setModel && ToolUtils.isFunction(setModel)) {
             setModel(this.props.prop, p_value);
         }
-        this.validate();
+        if (valid) {
+            this.validate();
+        }
     }
 
     private validRegular(regu: RegExp | Function, rule: IRuleItem, value: any): boolean {
@@ -115,33 +115,43 @@ export default class FormItem extends React.Component<FormItemProps, FormItemSta
     private validRule(rule: IRuleItem, value: any): boolean {
         let result = false;
         if (!ToolUtils.isNull(rule)) {
-            if (ToolUtils.isString(rule.verify)) {
-                let verify = rule.verify as string;
-                if (verify.includes("|")) {
-                    const vers = verify.split("|");
-                    for (let i = 0; i < vers.length; i++) {
-                        const res = this.validRegular(regular[vers[i]], rule, value);
-                        if (res) {
-                            result = true;
-                            break;
-                        }
-                    }
-                    if (!result) {
-                        this.setState({message: rule.message});
-                    }
-                } else {
-                    result = this.validRegular(regular[verify], rule, value);
-                    if (!result) {
-                        this.setState({message: rule.message});
-                    }
-                }
-            } else {
-                let verify = rule.verify as RegExp;
-                result = verify.test(value);
-                if (!result) {
+            if(ToolUtils.isFunction(rule.validator)){
+                const {model} = this.context;
+                result = rule.validator(value, rule, model);
+                if(!result){
                     this.setState({
                         message: rule.message
                     });
+                }
+            }else{
+                if (rule.verify && ToolUtils.isString(rule.verify)) {
+                    let verify = rule.verify as string;
+                    if (verify.includes("|")) {
+                        const vers = verify.split("|");
+                        for (let i = 0; i < vers.length; i++) {
+                            const res = this.validRegular(regular[vers[i]], rule, value);
+                            if (res) {
+                                result = true;
+                                break;
+                            }
+                        }
+                        if (!result) {
+                            this.setState({message: rule.message});
+                        }
+                    } else {
+                        result = this.validRegular(regular[verify], rule, value);
+                        if (!result) {
+                            this.setState({message: rule.message});
+                        }
+                    }
+                } else {
+                    let verify = rule.verify as RegExp;
+                    result = verify.test(value);
+                    if (!result) {
+                        this.setState({
+                            message: rule.message
+                        });
+                    }
                 }
             }
         }
@@ -195,6 +205,20 @@ export default class FormItem extends React.Component<FormItemProps, FormItemSta
             this.rule = rules[prop];
             addItemField(prop, this);
         }
+    }
+
+    public componentWillReceiveProps(nextProps: Readonly<FormItemProps>, nextContext: any): void {
+        const {prop} = nextProps;
+        const {model} = nextContext;
+        if (prop) {
+            this.value = model[prop];
+            this.resetFieldFun(this.value);
+        }
+    }
+
+    public shouldComponentUpdate(nextProps: Readonly<FormItemProps>, nextState: Readonly<FormItemState>, nextContext: any): boolean {
+        const {message} = this.state;
+        return message == nextState.message ? false : true;
     }
 
     private renderBaseClass(): string {

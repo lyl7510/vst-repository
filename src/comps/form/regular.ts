@@ -10,6 +10,8 @@ const regular: Iregular = {
     },
     telphone: /^[1][0-9]{10}$/,
     integer: /^[1-9][0-9]*$/,
+    float:/^\d*(?:\.\d{0,2})?$/,
+    int:/^[0-9]*$/,
     image: /.jpg$|.jpeg$|.gif$|.png$/i,
     repass: function (rule: IRuleItem, value: any , model:IForm) {
         return value == model[rule.equal];

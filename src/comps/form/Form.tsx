@@ -11,7 +11,7 @@ export interface IForm {
 
 export interface IRuleItem {
     verify?: string | RegExp;
-    validator?: (rule: IRuleItem, value: any, formData: IForm) => boolean;
+    validator?: (value: any, rule?: IRuleItem, formData?: IForm) => boolean;
     message: string;
 
     [name: string]: any;
@@ -86,6 +86,12 @@ export default class Form extends React.Component<FormProps, {}> {
     public resetFields(): void {
         for (let formItem of this.itemFields.values()) {
             formItem.resetField();
+        }
+    }
+
+    public componentWillReceiveProps(nextProps: Readonly<FormProps>, nextContext: any): void {
+        if (this.model != nextProps.model) {
+            this.model = nextProps.model;
         }
     }
 

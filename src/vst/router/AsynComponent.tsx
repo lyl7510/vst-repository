@@ -6,6 +6,7 @@ export interface IAsynComponentState {
 
 export interface RouterType extends IAsynComponentState {
     path: string;
+    exact?: boolean;
     children?: RouterType[];
 }
 

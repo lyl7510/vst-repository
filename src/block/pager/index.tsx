@@ -1,17 +1,18 @@
 import * as React from 'react';
-import BaseComponent from "../../vst/page/BaseComponent";
+import BaseComponent, {BaseComponentProps} from "../../vst/page/BaseComponent";
 import {Button, Pagination, Table} from "../../comps";
 import IRequestParam from "../../vst/interface/IRequestParam";
-
-import "./style/index.less";
+import {isFilterField} from "./../../utils/ArrayUtils";
 import IResult from "../../vst/interface/IResult";
 import {ColumnProps} from "antd/es/table/interface";
+
+import "./style/index.less";
 
 export interface IBtn {
     icon?: string;
     text: string;
     type: "default" | "primary" | "ghost" | "dashed" | "danger" | "link";
-    onClick: () => void;
+    onClick?: () => void;
 }
 
 export interface IPagerDesign {
@@ -23,8 +24,9 @@ export interface IPagerDesign {
     columns: ColumnProps<Object>[];
 }
 
-export interface VsbPagerProps {
-    design: IPagerDesign
+export interface VsbPagerProps extends BaseComponentProps{
+    design: IPagerDesign,
+    onRowClick?: (record: any, index: number, event: Event) => void;
 }
 
 export interface VsbPagerState {
@@ -33,13 +35,10 @@ export interface VsbPagerState {
     pagerSize: number;
     dataSource: any[];
     selectRows: any[];
+    rowSelection: any;
 }
 
 export default class VsbPager extends BaseComponent<VsbPagerProps, VsbPagerState> {
-
-    public rowSelection = {
-        onChange: this.rowChange
-    };
 
     public static defaultProps = {
         checkbox: false
@@ -54,19 +53,19 @@ export default class VsbPager extends BaseComponent<VsbPagerProps, VsbPagerState
             pagerNumber: 1,
             pagerSize: 20,
             dataSource: [],
-            selectRows: []
+            selectRows: [],
+            rowSelection: {
+                onChange: this.rowChange.bind(this),
+                selectedRowKeys: []
+            }
         }
     }
 
-    public onChange(pagerNumber: number, pagerSize?: number): void {
-        this.setState({
-            pagerNumber: pagerNumber,
-            pagerSize: pagerSize ? pagerSize : 20
-        });
+    public onChange(pagerNumber: number, pagerSize: number = this.state.pagerSize): void {
         this.search(pagerNumber, pagerSize);
     }
 
-    private showTotal(total: number): React.ReactNode {
+    protected showTotal(total: number): React.ReactNode {
         return `共 ${total} 条`;
     }
 
@@ -84,6 +83,10 @@ export default class VsbPager extends BaseComponent<VsbPagerProps, VsbPagerState
         this.search(pagerNumber, pagerSize);
     }
 
+    public onShowSizeChange(pagerNumber, pagerSize) {
+        this.search(pagerNumber, pagerSize);
+    }
+
     public search(pagerNumber: number, pagerSize: number): void {
         const {url} = this.props.design;
         const paramMap = Object.assign({
@@ -95,6 +98,7 @@ export default class VsbPager extends BaseComponent<VsbPagerProps, VsbPagerState
                 this.setState({
                     dataSource: result.data.result,
                     pagerNumber: result.data.pagerNumber,
+                    pagerSize: result.data.pageSize,
                     total: result.data.total
                 });
             }
@@ -105,11 +109,25 @@ export default class VsbPager extends BaseComponent<VsbPagerProps, VsbPagerState
         this.param = {};
     }
 
-    private rowChange(selectedRowKeys: string[] | number[], selectedRows: Object[]) {
-
+    private rowChange(selectedRowKeys: string[], selectedRows: Object[]) {
+        const {rowSelection} = this.state;
+        rowSelection.selectedRowKeys = selectedRowKeys;
+        this.setState({
+            selectRows: selectedRows,
+            rowSelection: rowSelection
+        })
     }
 
-    private renderBtns(): JSX.Element {
+    public getSelectIds(): string[] {
+        const {selectRows} = this.state;
+        return isFilterField(selectRows, "ID");
+    }
+
+    public getSelectRows(): any[] {
+        return this.state.selectRows;
+    }
+
+    protected renderBtns(): JSX.Element {
         const {btns} = this.props.design;
         return btns && btns.length > 0 ? <div className="buttonGroup">
             {btns.map((btn: IBtn, index: number) => {
@@ -119,22 +137,43 @@ export default class VsbPager extends BaseComponent<VsbPagerProps, VsbPagerState
     }
 
     public render(): JSX.Element {
-        const {title, columns, checkbox, key} = this.props.design;
-        const {total, dataSource, pagerNumber, pagerSize} = this.state;
         return (
             <div className="ant-pager">
-                <div className="title">
-                    {title}
-                    {this.renderBtns()}
-                </div>
-                <Table key={key ? key : "ID"} rowSelection={checkbox ? this.rowSelection : null} bordered={true}
-                       pagination={false}
-                       size="middle" columns={columns} dataSource={dataSource}/>
-                <Pagination total={total} current={pagerNumber} onChange={this.onChange.bind(this)} pageSize={pagerSize}
-                            pageSizeOptions={['10', '20', '50', '100']} showQuickJumper={true}
-                            showSizeChanger={true} showTotal={this.showTotal.bind(this)}/>
+                {this.renderTitle()}
+                {this.renderContent()}
+                {this.renderPagination()}
             </div>
         );
+    }
+
+    protected renderTitle(): JSX.Element {
+        const {title} = this.props.design;
+        return (<div className="title">
+            {title}
+            {this.renderBtns()}
+        </div>)
+    }
+
+    protected rowClick(record: any, index: number, event: Event): void {
+        this.props.onRowClick && this.props.onRowClick(record, index, event);
+    }
+
+    protected renderContent(): JSX.Element {
+        const {columns, checkbox, key} = this.props.design;
+        const {dataSource, rowSelection} = this.state;
+        return (<Table key={key ? key : "ID"} rowKey={key ? key : "ID"}
+                       rowSelection={checkbox ? rowSelection : null} bordered={true}
+                       onRow={this.rowClick.bind(this)}
+                       pagination={false}
+                       size="middle" columns={columns} dataSource={dataSource}/>)
+    }
+
+    protected renderPagination(): JSX.Element {
+        const {total, pagerNumber, pagerSize} = this.state;
+        return (<Pagination total={total} current={pagerNumber} onChange={this.onChange.bind(this)} pageSize={pagerSize}
+                            pageSizeOptions={['10', '20', '50', '100']} showQuickJumper
+                            showSizeChanger onShowSizeChange={this.onShowSizeChange.bind(this)}
+                            showTotal={this.showTotal.bind(this)}/>)
     }
 
 }

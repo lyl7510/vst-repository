@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Form, Input, Button, Select, Radio} from "../../../comps";
+import {Form, Input, Button, Select, Radio ,TextArea} from "../../../comps";
 import FormComponent, {FormComponentProps, FormComponentState} from "../../../vst/page/FormComponent";
 
 export default class FormExample extends FormComponent<FormComponentProps, FormComponentState> {
@@ -55,6 +55,15 @@ export default class FormExample extends FormComponent<FormComponentProps, FormC
                             <Radio value={0}>正常</Radio>
                             <Radio value={1}>停用</Radio>
                         </Radio.Group>
+                    </Form.Item>
+                    <Form.Item span={6} prop="STATE" label="状态">
+                        <Radio.Group value={myForm.STATE}>
+                            <Radio value={0}>正常</Radio>
+                            <Radio value={1}>停用</Radio>
+                        </Radio.Group>
+                    </Form.Item>
+                    <Form.Item span={6} prop="DES" label="描述">
+                        <TextArea value={myForm.DES}　placeholder="测试描述字段"></TextArea>
                     </Form.Item>
                     <Form.Item span={6}>
                         <Button type="primary" onClick={this.handleSubmit.bind(this)}>提交</Button>

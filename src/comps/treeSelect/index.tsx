@@ -7,10 +7,15 @@ import IRequestParam from "../../vst/interface/IRequestParam";
 import IResult from "../../vst/interface/IResult";
 import treeUtils, {ItreeConfig} from "../../utils/TreeUtils";
 
+import "antd/es/tree-select/style";
+import "./style/index.less";
+import {match} from "react-router-dom";
+
 export interface TreeSelectComponentProps extends TreeSelectProps<number | string> {
     url: string;
     param?: IRequestParam;
     treeOptions: ItreeConfig;
+    match?: match<any>
 }
 
 export interface TreeSelectComponentState {
@@ -44,7 +49,7 @@ export default class TreeSelectComponent extends BaseComponent<TreeSelectCompone
         this.setState({
             value: p_value
         });
-        onChange && onChange(p_value);
+        onChange && onChange(p_value , true);
         this.props.onChange && this.props.onChange(p_value, label, extra);
     }
 
@@ -69,17 +74,18 @@ export default class TreeSelectComponent extends BaseComponent<TreeSelectCompone
     }
 
     private resetField(defaultValue: any): void {
+        defaultValue = defaultValue == "" || defaultValue == null ? undefined : defaultValue;
         this.setState({
             value: defaultValue
         });
         const {onChange} = this.context;
-        onChange && onChange(defaultValue);
+        onChange && onChange(defaultValue , false);
     }
 
     public render(): JSX.Element {
         const {treeOptions} = this.props;
-        const {dataSet} = this.state;
-        return (<TreeSelect {...this.props} onChange={this.onChange.bind(this)}>
+        const {dataSet ,value} = this.state;
+        return (<TreeSelect {...this.props} onChange={this.onChange.bind(this)} value={value}>
             {this.renderTreeNOde(dataSet, treeOptions)}
         </TreeSelect>);
     }
@@ -95,7 +101,7 @@ export default class TreeSelectComponent extends BaseComponent<TreeSelectCompone
                         </TreeSelect.TreeNode>
                     } else {
                         return <TreeSelect.TreeNode key={item[options.value]} value={item[options.value]}
-                                                    title={item[options.label]}/>
+                                                    title={item[options.label]}></TreeSelect.TreeNode>
                     }
                 })
             }

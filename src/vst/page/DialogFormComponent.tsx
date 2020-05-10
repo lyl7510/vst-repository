@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {IForm, IRule} from "../../comps/form";
 import Form from "../../comps/form";
-import BaseComponent from "./BaseComponent";
+import BaseComponent, {BaseComponentProps} from "./BaseComponent";
 import Modal from "./../../comps/modal";
 
-export interface DialogFormComponentProps {
-
+export interface DialogFormComponentProps extends BaseComponentProps{
+    callback?: (option?: any) => void;
 }
 
 export interface DialogFormComponentState {
@@ -72,6 +72,12 @@ export default abstract class DialogFormComponent<P extends DialogFormComponentP
         }
     }
 
+    protected afterClose(): void {
+        if (this.myFrom) {
+            this.myFrom.resetFields();
+        }
+    }
+
     protected abstract submit(): void;
 
     protected abstract renderContent(): JSX.Element;
@@ -80,7 +86,7 @@ export default abstract class DialogFormComponent<P extends DialogFormComponentP
         return (
             <Modal title={this.title} width={this.width} visible={this.state.visible} onOk={this.ok.bind(this)}
                    onCancel={this.cancel.bind(this)} okText={this.okText} cancelText={this.cancelText}
-                   maskClosable={this.maskClosable}>
+                   maskClosable={this.maskClosable} afterClose={this.afterClose.bind(this)}>
                 {this.renderContent()}
             </Modal>
         );

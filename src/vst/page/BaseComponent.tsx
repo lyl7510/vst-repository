@@ -1,6 +1,9 @@
 import * as React from 'react';
 import axios from "../../utils/axios";
+import {match} from 'react-router-dom'
 import message from "../../comps/message";
+import Modal from "../../comps/modal";
+import Icon from "../../comps/icon";
 import {createHashHistory} from "history";
 import projectConfig from "../../config/ProjectConfig";
 import IRequestParam from "../interface/IRequestParam";
@@ -14,8 +17,11 @@ export enum MessageType {
     WARNING = "warning"
 }
 
+export interface BaseComponentProps {
+    match?: match<any>
+}
 
-export default class BaseComponent<P extends {}, S extends {}> extends React.Component<P, S> {
+export default class BaseComponent<P extends BaseComponentProps, S extends {}> extends React.Component<P, S> {
 
     constructor(props: P) {
         super(props);
@@ -47,8 +53,31 @@ export default class BaseComponent<P extends {}, S extends {}> extends React.Com
         }
     }
 
+    protected confirm(title: string, content: string = ""): Promise<any> {
+        return new Promise((resolve, reject) => {
+            Modal.confirm({
+                title: title,
+                icon: <Icon type="question-circle"/>,
+                content: content,
+                onOk() {
+                    resolve(null);
+                },
+                onCancel() {
+                    reject(null);
+                }
+            });
+        });
+    }
+
     protected push(url: string): void {
         history.push(url);
+    }
+
+    protected getRouterParam(key: string): any {
+        if (this.props.match) {
+            return this.props.match.params[key];
+        }
+        return null;
     }
 
 }

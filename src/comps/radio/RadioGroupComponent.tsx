@@ -32,12 +32,12 @@ export default class RadioGroupComponent extends React.Component<RadioGroupProps
 
     public onChange(e: RadioChangeEvent): void {
         const value = e.target.value;
-        console.log('value' , value);
+        console.log('value', value);
         const {onChange} = this.context;
         this.setState({
             value: value
         });
-        onChange && onChange(value);
+        onChange && onChange(value, true);
         this.props.onChange && this.props.onChange(e);
     }
 
@@ -46,7 +46,7 @@ export default class RadioGroupComponent extends React.Component<RadioGroupProps
             value: defaultValue
         });
         const {onChange} = this.context;
-        onChange && onChange(defaultValue);
+        onChange && onChange(defaultValue, false);
     }
 
     public render(): JSX.Element {

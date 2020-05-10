@@ -3,10 +3,10 @@ import IErrorConfig from "../vst/interface/IErrorConfig";
 export class ProjectConfig {
     public projectCode = "";
     public basePath = "/api";
-    public upload = "/system/upload";
+    public upload = this.basePath + "/system/upload";
     public getFile = "/system/getFile";
-    public getDownload = "/system/download";
-    public getImage = "/system/image?id=";
+    public getDownload = this.basePath + "/system/download";
+    public getImage = this.basePath + "/system/image?id=";
     public errorConfig: IErrorConfig = {};
 
     public setProjectCode(projectCode: string): void {

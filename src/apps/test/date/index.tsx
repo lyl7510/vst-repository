@@ -1,5 +1,5 @@
 import * as React from 'react';
-import DatePicker from "../../../comps/date";
+import DatePicker from "../../../comps/date/index";
 
 export default class DateComponent extends React.Component<{}, {}> {
 
