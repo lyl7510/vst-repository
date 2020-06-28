@@ -20,6 +20,7 @@ import TreeSelect from "./treeSelect/index";
 import Pagination from "./pagination";
 import Divider from "./divider";
 import TextArea from "./textarea";
+import ReadOnlyForm from "./form/ReadOnlyForm";
 
 export {
     Button,
@@ -43,5 +44,6 @@ export {
     TreeSelect,
     Pagination,
     Divider,
-    TextArea
+    TextArea,
+    ReadOnlyForm
 };

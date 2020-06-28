@@ -1,23 +1,10 @@
 import * as React from 'react';
-import {Grid} from "../../../comps"
-import VsbPager, {IPagerDesign} from "../../../block/pager";
-import VsbPagerList from "../../../block/pager/list";
-import VsbPagerTitle from "../../../block/pager/title";
-import VsbPagerFooter from "../../../block/pager/footer";
-import BaseComponent, {BaseComponentProps} from "../../../vst/page/BaseComponent";
 import "./style/index.less";
+import PagerComponent, {PagerComponentProps, PagerComponentState} from "../../../vst/page/PagerComponent";
 
+export default class PagerExample extends PagerComponent<PagerComponentProps, PagerComponentState> {
 
-export interface PagerExampleState {
-    design: IPagerDesign;
-}
-
-
-export default class PagerExample extends BaseComponent<BaseComponentProps, PagerExampleState> {
-
-    private pager: VsbPager = null;
-
-    protected constructor(props: BaseComponentProps) {
+    public constructor(props: PagerComponentProps) {
         super(props);
         this.state = {
             design: {
@@ -55,22 +42,6 @@ export default class PagerExample extends BaseComponent<BaseComponentProps, Page
                     }]
             }
         }
-    }
-
-    componentDidMount(): void {
-        this.pager.query();
-    }
-
-    public render(): JSX.Element {
-        const {design} = this.state;
-        return (<React.Fragment>
-                <Grid.Row>
-                    <Grid.Col span={24}>
-                        <VsbPagerList design={design} ref={(node) => this.pager = node}></VsbPagerList>
-                    </Grid.Col>
-                </Grid.Row>
-            </React.Fragment>
-        );
     }
 
 }

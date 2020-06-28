@@ -24,9 +24,10 @@ export interface IPagerDesign {
     columns: ColumnProps<Object>[];
 }
 
-export interface VsbPagerProps extends BaseComponentProps{
+export interface VsbPagerProps extends BaseComponentProps {
     design: IPagerDesign,
     onRowClick?: (record: any, index: number, event: Event) => void;
+    renderTitle?: () => JSX.Element;
 }
 
 export interface VsbPagerState {
@@ -120,7 +121,7 @@ export default class VsbPager extends BaseComponent<VsbPagerProps, VsbPagerState
 
     public getSelectIds(): string[] {
         const {selectRows} = this.state;
-        return isFilterField(selectRows, "ID");
+        return isFilterField(selectRows, this.props.design.key ? this.props.design.key : "ID");
     }
 
     public getSelectRows(): any[] {
@@ -147,9 +148,9 @@ export default class VsbPager extends BaseComponent<VsbPagerProps, VsbPagerState
     }
 
     protected renderTitle(): JSX.Element {
-        const {title} = this.props.design;
-        return (<div className="title">
-            {title}
+        const {renderTitle} = this.props;
+        return (renderTitle ? renderTitle() : <div className="title">
+            {this.props.design.title}
             {this.renderBtns()}
         </div>)
     }

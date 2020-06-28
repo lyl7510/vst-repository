@@ -21,8 +21,5 @@
     "no-empty-interface":false,// 不允许空接口
     "no-angle-bracket-type-assertion": false,
     "jsx-no-lambda": [ false ]
-  },
-  "jsRules": {
-    "ordered-imports": false
   }
 }

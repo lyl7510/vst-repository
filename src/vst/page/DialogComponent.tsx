@@ -2,12 +2,12 @@ import * as React from 'react';
 import BaseComponent, {BaseComponentProps} from "./BaseComponent";
 import Modal from "./../../comps/modal";
 
-export interface DialogComponentProps extends BaseComponentProps{
+export interface DialogComponentProps extends BaseComponentProps {
     callback?: (option?: any) => void;
 }
 
 export interface DialogComponentState {
-    visible: boolean;
+    [name: string]: any;
 }
 
 export default abstract class DialogComponent<P extends DialogComponentProps, S extends DialogComponentState> extends BaseComponent<DialogComponentProps, DialogComponentState> {
@@ -17,6 +17,7 @@ export default abstract class DialogComponent<P extends DialogComponentProps, S 
     protected okText: string = "确定";
     protected cancelText: string = "取消";
     protected maskClosable: boolean = false;
+    protected destroyOnClose: boolean = false;
 
     protected constructor(props: DialogComponentProps) {
         super(props);
@@ -60,7 +61,7 @@ export default abstract class DialogComponent<P extends DialogComponentProps, S 
                    visible={this.state.visible}
                    onOk={this.ok.bind(this)}
                    onCancel={this.cancel.bind(this)} okText={this.okText} cancelText={this.cancelText}
-                   maskClosable={this.maskClosable}>
+                   maskClosable={this.maskClosable} destroyOnClose={this.destroyOnClose}>
                 {this.renderContent()}
             </Modal>
         );

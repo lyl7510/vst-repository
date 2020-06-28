@@ -10,7 +10,7 @@ export interface QueryPagerComponentProps extends BaseComponentProps {
 
 export interface QueryPagerComponentState {
     model: IForm;
-    rules: IRule;
+    rules?: IRule;
     design: IPagerDesign;
 }
 
@@ -56,7 +56,6 @@ export default abstract class QueryPagerComponent<P extends QueryPagerComponentP
     }
 
     public render(): JSX.Element {
-
         return (<React.Fragment>
                 {this.renderForm()}
                 <Grid.Row>
@@ -72,8 +71,14 @@ export default abstract class QueryPagerComponent<P extends QueryPagerComponentP
         return null;
     }
 
+    protected renderTitle(): Function {
+        return null;
+    }
+
     protected renderContent(): JSX.Element {
         const {design} = this.state;
-        return (<VsbPager ref={(node) => this.pager = node} design={design}></VsbPager>)
+        const title = this.renderTitle();
+        return (<VsbPager ref={(node) => this.pager = node} design={design}
+                          renderTitle={title ? title.bind(this) : null}></VsbPager>)
     }
 }

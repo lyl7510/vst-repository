@@ -4,7 +4,7 @@ import Form from "../../comps/form";
 import BaseComponent, {BaseComponentProps} from "./BaseComponent";
 import Modal from "./../../comps/modal";
 
-export interface DialogFormComponentProps extends BaseComponentProps{
+export interface DialogFormComponentProps extends BaseComponentProps {
     callback?: (option?: any) => void;
 }
 
@@ -24,6 +24,8 @@ export default abstract class DialogFormComponent<P extends DialogFormComponentP
     protected okText: string = "确定";
     protected cancelText: string = "取消";
     protected maskClosable: boolean = false;
+    protected destroyOnClose: boolean = true;
+
 
     protected constructor(props: DialogFormComponentProps) {
         super(props);
@@ -57,6 +59,9 @@ export default abstract class DialogFormComponent<P extends DialogFormComponentP
     }
 
     protected cancel(): void {
+        if (this.myFrom) {
+            this.myFrom.resetFields();
+        }
         this.setState({
             visible: false
         })
@@ -84,9 +89,9 @@ export default abstract class DialogFormComponent<P extends DialogFormComponentP
 
     public render(): JSX.Element {
         return (
-            <Modal title={this.title} width={this.width} visible={this.state.visible} onOk={this.ok.bind(this)}
-                   onCancel={this.cancel.bind(this)} okText={this.okText} cancelText={this.cancelText}
-                   maskClosable={this.maskClosable} afterClose={this.afterClose.bind(this)}>
+            <Modal title={this.title} width={this.width} visible={this.state.visible} onOk={this.ok.bind(this)} okText={this.okText} cancelText={this.cancelText}
+                   maskClosable={this.maskClosable} onCancel={this.cancel.bind(this)}
+                   afterClose={this.afterClose.bind(this)} destroyOnClose={this.destroyOnClose}>
                 {this.renderContent()}
             </Modal>
         );

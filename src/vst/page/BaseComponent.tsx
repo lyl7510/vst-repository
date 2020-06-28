@@ -27,7 +27,7 @@ export default class BaseComponent<P extends BaseComponentProps, S extends {}> e
         super(props);
     }
 
-    protected requestData(url: string, paramMap: IRequestParam = {}): Promise<any> {
+    public requestData(url: string, paramMap: IRequestParam = {}): Promise<any> {
         return axios.post(projectConfig.basePath + url, paramMap).catch((result: any) => {
             if (result && projectConfig.errorConfig[result]) {
                 message.error(projectConfig.errorConfig[result]);

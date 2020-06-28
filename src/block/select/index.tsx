@@ -15,7 +15,9 @@ export interface VsbSelectProps extends SelectComponentProps {
     placeholder?: string;
     url: string;
     param?: IRequestParam;
-    selectOptions: ISelectOption
+    selectOptions: ISelectOption;
+    load?: boolean;
+
 }
 
 export interface VsbSelectState {
@@ -26,7 +28,8 @@ export interface VsbSelectState {
 export default class Index extends BaseComponent<VsbSelectProps, VsbSelectState> {
 
     public static defaultProps = {
-        allowClear: true
+        allowClear: true,
+        load: true
     };
 
     public static contextTypes = {
@@ -45,13 +48,9 @@ export default class Index extends BaseComponent<VsbSelectProps, VsbSelectState>
 
     public componentWillMount(): void {
         const {value, setResetFieldFun} = this.context;
-        super.requestData(this.props.url, this.props.param).then((result: IResult) => {
-            if (result && result.code === 100) {
-                this.setState({
-                    dataSet: result.data
-                });
-            }
-        });
+        if (this.props.load) {
+            this.query();
+        }
         if (value) {
             this.setState({
                 value: value
@@ -60,6 +59,16 @@ export default class Index extends BaseComponent<VsbSelectProps, VsbSelectState>
         if (setResetFieldFun) {
             setResetFieldFun(this.resetField.bind(this));
         }
+    }
+
+    public query(): void {
+        super.requestData(this.props.url, this.props.param).then((result: IResult) => {
+            if (result && result.code === 100) {
+                this.setState({
+                    dataSet: result.data
+                });
+            }
+        });
     }
 
     private resetField(defaultValue: any): void {
@@ -87,7 +96,8 @@ export default class Index extends BaseComponent<VsbSelectProps, VsbSelectState>
         return <Select {...this.props} value={value} onChange={this.onChange.bind(this)} placeholder={placeholder}>
             {
                 dataSet.map((item) => {
-                    return <Select.Option key={item[selectOptions.value]} value={item[selectOptions.value]}>{item[selectOptions.label]}</Select.Option>
+                    return <Select.Option key={item[selectOptions.value]}
+                                          value={item[selectOptions.value]}>{item[selectOptions.label]}</Select.Option>
                 })
             }
         </Select>;
