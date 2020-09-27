@@ -2,11 +2,12 @@ import * as React from 'react';
 import * as PropTypes from "prop-types";
 import BaseComponent, {BaseComponentProps} from "./../../vst/page/BaseComponent";
 import BraftEditor, {ControlType, EditorState} from 'braft-editor';
-
+import projectConfig from "./../../config/ProjectConfig";
+import axios from "../../utils/axios";
 import 'braft-editor/dist/index.css'
 import "./style/index.less";
 
-export interface EditorComponentProps extends BaseComponentProps{
+export interface EditorComponentProps extends BaseComponentProps {
     value?: string;
     placeholder?: string;
     onChange?: (editorState: EditorState) => void;
@@ -29,8 +30,8 @@ export default class EditorComponent extends BaseComponent<EditorComponentProps,
         setResetFieldFun: PropTypes.func
     };
 
-    public value:string;
-    public editor:BraftEditor;
+    public value: string;
+    public editor: BraftEditor;
 
     public constructor(props: EditorComponentProps) {
         super(props);
@@ -61,7 +62,7 @@ export default class EditorComponent extends BaseComponent<EditorComponentProps,
     private resetField(defaultValue: any): void {
         defaultValue = defaultValue == "" || defaultValue == null ? undefined : defaultValue;
         this.value = defaultValue;
-        if(this.editor){
+        if (this.editor) {
             this.editor.setValue(BraftEditor.createEditorState(this.value));
         }
         const {onChange} = this.context;
@@ -72,10 +73,21 @@ export default class EditorComponent extends BaseComponent<EditorComponentProps,
         return false;
     }
 
+    public upload(param): void {
+        let formData = new FormData();
+        formData.append("file", param.file);
+        axios.post(projectConfig.editorUpload, formData, {
+            headers: {'Content-Type': 'multipart/form-data'}
+        }).then((result) => {
+            param.success(result);
+        });
+    }
+
     public render(): JSX.Element {
         const {placeholder} = this.props;
         const editorValue = BraftEditor.createEditorState(this.value);
-        return <BraftEditor ref={(node)=>this.editor = node} controls={this.controls} value={editorValue} onChange={this.onChange.bind(this)} language="zh"
+        return <BraftEditor ref={(node) => this.editor = node} controls={this.controls} value={editorValue}
+                            onChange={this.onChange.bind(this)} language="zh" media={{uploadFn: this.upload.bind(this)}}
                             className="ant-editor" placeholder={placeholder}/>
     }
 }

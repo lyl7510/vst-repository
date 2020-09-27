@@ -3,6 +3,7 @@ export declare class ProjectConfig {
     projectCode: string;
     basePath: string;
     upload: string;
+    editorUpload: string;
     getFile: string;
     getDownload: string;
     getImage: string;

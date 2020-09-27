@@ -1,6 +1,6 @@
 {
   "name": "vst-repository",
-  "version": "1.0.130",
+  "version": "1.0.132",
   "description": "前端仓库",
   "main": "src/index.js",
   "scripts": {
@@ -23,10 +23,11 @@
   },
   "devDependencies": {
     "copy": "^0.3.2",
-    "vst-cli": "^1.0.23",
+    "vst-cli": "^1.0.26",
     "webpack-api-mocker": "^1.7.6"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^21.0.0",
     "@types/react": "^16.9.15",
     "@types/react-dom": "^16.9.4",
     "@types/react-redux": "^7.1.5",

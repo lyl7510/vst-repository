@@ -25,5 +25,6 @@ export default class EditorComponent extends BaseComponent<EditorComponentProps,
     onChange(editorState: EditorState): void;
     private resetField(defaultValue);
     shouldComponentUpdate(nextProps: Readonly<EditorComponentProps>, nextState: Readonly<EditorComponentState>, nextContext: any): boolean;
+    upload(param: any): void;
     render(): JSX.Element;
 }

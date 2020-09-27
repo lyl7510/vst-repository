@@ -4,6 +4,7 @@ export class ProjectConfig {
     public projectCode = "";
     public basePath = "/api";
     public upload = this.basePath + "/system/upload";
+    public editorUpload = this.basePath + "/system/editorUpload";
     public getFile = "/system/getFile";
     public getDownload = this.basePath + "/system/download";
     public getImage = this.basePath + "/system/image?id=";
