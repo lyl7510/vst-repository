@@ -1,25 +1,77 @@
 {
-  "extends": [ //内设配置项名称
-
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
   ],
+  "defaultSeverity": "warning",
   "linterOptions": {
     "exclude": [
-      "config/**/*.js",
-      "node_modules/**/*.ts",
-      "coverage/lcov-report/*.js"
+      "src/assets/**",
+      "node_modules/**"
     ]
   },
+  "jsRules": {},
   "rules": {
-    "ordered-imports": false,
-    "interface-name" : [false, "never-prefix"],
-    "object-literal-sort-keys": false,
+    "adjacent-overload-signatures": true,
+    "ban-comma-operator": true,
+    "ban-type": true,
+    "member-access": true,
+    "member-order": true,
+    "no-any": true,
+    "no-empty-interface": false,
+    "no-import-side-effect": true,
+    "no-inferrable-types": true,
+    "no-internal-module": true,
+    "no-magic-numbers": true,
+    "no-namespace": [
+      true,
+      "allpw-declarations"
+    ],
+    "no-non-null-assertion": true,
+    "no-parameter-reassignment": true,
+    "no-reference": true,
+    "no-unnecessary-type-assertion": true,
+    "no-var-requires": true,
+    "only-arrow-functions": [
+      true,
+      "allow-declarations",
+      "allow-named-functions"
+    ],
+    "prefer-for-of": true,
+    "promise-function-async": true,
+    "typedef": [
+      true,
+      "call-signature",
+      "parameter",
+      "member-variable-declaration"
+    ],
+    "typedef-whitespace": true,
+    "unified-signatures": true,
+    "await-promise": true,
+    "curly": true,
+    "forin": true,
+    "import-blacklist": true,
+    "label-postion": true,
+    "no-arg": true,
+    "no-bitwise": true,
+    "no-conditional-assignmen": true,
     "no-console": false,
+    "no-construct": true,
     "no-debugger": false,
-    "no-unused-expression": false,
-    "no-shadowed-variable": false,
-    "no-empty": false,
-    "no-empty-interface":false,// 不允许空接口
-    "no-angle-bracket-type-assertion": false,
-    "jsx-no-lambda": [ false ]
-  }
+    "no-duplicate-super": true,
+    "no-empty": true,
+    "no-eval": true,
+    "no-floating-promises": true,
+    "no-for-in-array": true,
+    "no-implicit-dependencies": true,
+    "no-inferred-empty-object-type": true,
+    "no-invalid-template-strings": true,
+    "no-invalid-this": true,
+    "no-misused-new": true,
+    "no-null-keyword": true,
+    "no-object-literal-type-assertion": true,
+    "no-return-await": true,
+    "arrow-parens": true
+  },
+  "rulesDirectory": []
 }

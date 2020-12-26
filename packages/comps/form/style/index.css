@@ -1,0 +1,18 @@
+.ant-form-inline .ant-form-item{
+  display: block;
+  box-sizing: border-box;
+  margin-right: 0 !important;
+}
+.ant-form-inline .ant-form-item-label,.ant-form-inline .ant-form-item-control{
+  box-sizing: border-box;
+}
+.ant-form-inline .ant-form-item-label{
+  float: left;
+}
+.ant-form-inline .ant-form-item-control{
+  overflow: hidden;
+}
+
+.ant-form-inline .ant-btn{
+  margin-left: 8px;
+}

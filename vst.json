@@ -13,7 +13,7 @@
   },
   "resolve": {
     "alias": {
-      "@static": "./static"
+      "@packages": "./packages"
     },
     "modules": [
     ]

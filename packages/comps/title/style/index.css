@@ -1,0 +1,14 @@
+.title {
+  height: 44px;
+  line-height: 44px;
+  padding-left: 20px;
+  padding-right: 10px;
+}
+
+.title .buttonGroup {
+  float: right;
+}
+
+.title button {
+  margin: 0 3px;
+}
