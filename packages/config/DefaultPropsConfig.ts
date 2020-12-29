@@ -227,6 +227,7 @@ export interface DefaultTreeSelectProps {
 export interface DefaultTableProps {
     bodyStyle?: React.CSSProperties;
     className?: string;
+    bordered?: boolean;
     filterIcon?: React.ReactNode | ((filtered: boolean) => React.ReactNode);
 }
 

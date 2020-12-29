@@ -1,12 +1,12 @@
 {
   "devServer": {
-    "host": "127.0.0.1",
+    "host": "192.168.137.1",
     "port": 9000,
     "proxy": {
-      "/api/system": {
-        "target": "http://106.12.117.171:8080/",
+      "/api/admin": {
+        "target": "http://172.18.255.251:8888",
         "pathRewrite": {
-          "^/api/system": ""
+          "^/api/admin": "/api/admin"
         }
       }
     }

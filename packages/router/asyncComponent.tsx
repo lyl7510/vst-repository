@@ -8,7 +8,7 @@ interface AsyncComponentState {
 
 export default function asyncComponent(importComponent: ImportComponentFun): React.ComponentType<any> {
 
-    class AsyncComponent extends React.Component<{}, AsyncComponentState> {
+    return class AsyncComponent extends React.Component<{}, AsyncComponentState> {
 
         constructor(props: {}) {
             super(props);
@@ -31,6 +31,4 @@ export default function asyncComponent(importComponent: ImportComponentFun): Rea
         }
 
     }
-
-    return AsyncComponent;
 }

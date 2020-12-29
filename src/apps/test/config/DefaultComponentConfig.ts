@@ -15,6 +15,9 @@ const defaultComponentConfig: IDefaultProps = {
         itemCol: 12,
         colon: false,
         size: "middle"
+    },
+    table: {
+        bordered: true
     }
 };
 export default defaultComponentConfig;

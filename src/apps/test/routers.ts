@@ -5,6 +5,10 @@ const routers: RouterType[] = [
     {
         path: '/button',
         component: asynComponent(() => import('./button/ButtonExample'))
+    },
+    {
+        path: '/pager',
+        component: asynComponent(() => import('./pager/PagerExample'))
     }
 ];
 

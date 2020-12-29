@@ -8,6 +8,7 @@ import {PaginationProps} from "antd/es/pagination";
 import {TableEventListeners} from "antd/es/table/interface";
 
 import "./style/index.css"
+import {isFunction} from "@packages/utils/ToolUtils";
 
 export interface IData {
     [name: string]: any;
@@ -20,8 +21,10 @@ export interface ArtListTableProps extends ArtTableProps {
     onClick?: (record: IData, index: number, event: React.MouseEvent) => void;
 }
 
+export type TitleFun = () => React.ReactNode;
+
 export interface ArtListProps {
-    title?: TitleProps;
+    title?: TitleProps | TitleFun;
     ajax?: AxiosRequestConfig,
     table: ArtListTableProps,
     page?: PaginationProps | false
@@ -195,8 +198,13 @@ export default class ArtList extends React.Component<ArtListProps, ArtListState>
      * 渲染表头
      * @returns {React.ReactNode}
      */
-    protected renderTitle(): React.ReactNode {
-        return this.props.title ? <Title {...this.props.title}/> : null;
+    protected renderTitle(title: TitleProps | TitleFun): React.ReactNode {
+        if (isFunction(title)) {
+            const titleFun = title as TitleFun;
+            return titleFun();
+        } else {
+            return <Title {...title}/>;
+        }
     }
 
     /**
@@ -225,8 +233,9 @@ export default class ArtList extends React.Component<ArtListProps, ArtListState>
      * @returns {React.ReactNode}
      */
     public render(): React.ReactNode {
+        const {title} = this.props;
         return (<div className={"ant-list"}>
-            {this.renderTitle()}
+            {title ? this.renderTitle(title) : null}
             {this.renderContent()}
             {this.renderPaination()}
         </div>);

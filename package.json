@@ -3,10 +3,9 @@
   "version": "1.0.4",
   "description": "前端仓库",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
     "start": "vst-cli start",
-    "copycss": "vst-cli copycss",
-    "copystatic": "vst-cli copystatic"
+    "build": "vst-cli build",
+    "dll": "vst-cli dll"
   },
   "repository": {
     "type": "git",
