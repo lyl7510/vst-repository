@@ -4,10 +4,10 @@ import {IFormContentProps, IModel, IFormResult} from "./interface/index";
 import {FormContent} from "./content/FormContent";
 import * as PropTypes from "prop-types";
 import {BooleanString} from "./validator";
+import ComponentConfig from "@packages/config/ComponentConfig";
 
 import "antd/es/form/style/index.css";
 import "./style/index.css";
-import ComponentConfig from "@packages/config/ComponentConfig";
 
 export interface FromProps extends IFormContentProps {
     //表单布局
@@ -130,6 +130,14 @@ export default class Form extends React.Component<FromProps, FormState> {
             model: newModel
         });
         this.props.onValuesChange && this.props.onValuesChange(value, name, newModel);
+    }
+
+    /**
+     * 获取表单数据
+     * @returns {IModel}
+     */
+    public getModel(): IModel {
+        return this.state.model;
     }
 
     /**
