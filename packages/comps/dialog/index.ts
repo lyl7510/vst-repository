@@ -1,3 +1,3 @@
 import confirm from "./confirm";
 
-export {confirm}
+export default {confirm}

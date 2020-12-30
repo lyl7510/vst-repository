@@ -86,13 +86,17 @@ export default class Form extends React.Component<FromProps, FormState> {
     /**
      * 重置表单
      */
-    public resetFields(): void {
-        this.setState({
-            model: this.props.model
+    public resetFields(): Promise<any> {
+        return new Promise((resolve) => {
+            for (let item of this.formItems.values()) {
+                item.resetField();
+            }
+            this.setState({
+                model: this.props.model
+            }, () => {
+                resolve();
+            });
         });
-        for (let item of this.formItems.values()) {
-            item.resetField();
-        }
     }
 
     /**
@@ -158,7 +162,7 @@ export default class Form extends React.Component<FromProps, FormState> {
      * @returns {string}
      */
     protected renderBaseClass(): string {
-        return `ant-row ant-form ant-form-${this.props.layout}`;
+        return `ant-form ant-form-${this.props.layout}`;
     }
 
     /**

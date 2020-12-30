@@ -18,6 +18,13 @@ const defaultComponentConfig: IDefaultProps = {
     },
     table: {
         bordered: true
+    },
+    modal: {
+        okText: "确定",
+        cancelText: "取消",
+        okType: "primary",
+        destroyOnClose: true,
+        maskClosable: false
     }
 };
 export default defaultComponentConfig;

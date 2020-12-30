@@ -33,7 +33,7 @@ export interface IFormContentProps {
 /**
  * 配置验证规则内容
  */
-type RegularType = ((value: any, rule?: IRule, model?: IModel) => boolean) | RegExp;
+export type RegularType = ((value: any, rule?: IRule, model?: IModel) => boolean) | RegExp;
 
 export interface IRegular {
   [name: string]: RegularType

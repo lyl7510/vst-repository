@@ -41,10 +41,11 @@ export default class QueryPagerComponent<P, S> extends PagerComponent<P, S> {
      * 重置方法
      */
     public reset(): void {
-        this.myForm.resetFields();
-        const model: IModel = this.myForm.getModel();
-        this.list.setParam(model);
-        this.list.setPagerNumber(1);
-        this.list.search();
+        this.myForm.resetFields().then(()=>{
+            const model: IModel = this.myForm.getModel();
+            this.list.setParam(model);
+            this.list.setPagerNumber(1);
+            this.list.search();
+        });
     }
 }

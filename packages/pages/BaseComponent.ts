@@ -22,7 +22,7 @@ export default class BaseComponent<P, S> extends React.Component<P, S> {
      * @param {AxiosRequestConfig} config
      * @returns {Promise<IResult>}
      */
-    protected post(url: string, param: IRequestData, config?: AxiosRequestConfig): Promise<IResult> {
+    protected post(url: string, param?: IRequestData, config?: AxiosRequestConfig): Promise<IResult> {
         return axios.post(url, param, config);
     }
 

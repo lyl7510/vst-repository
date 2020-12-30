@@ -9,6 +9,10 @@ const routers: RouterType[] = [
     {
         path: '/pager',
         component: asynComponent(() => import('./pager/PagerExample'))
+    },
+    {
+        path: '/queryPager',
+        component: asynComponent(() => import('./queryPager/QueryPagerExample'))
     }
 ];
 
