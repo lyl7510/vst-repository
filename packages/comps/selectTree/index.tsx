@@ -1,6 +1,6 @@
 import * as React from "react";
-import TreeSelect, {TreeSelectProps} from "antd/es/tree-select";
 import * as PropTypes from "prop-types";
+import TreeSelect, {TreeSelectProps} from "antd/es/tree-select";
 import ComponentConfig from "@packages/config/ComponentConfig";
 
 import "antd/es/tree-select/style/index.css";
@@ -44,7 +44,7 @@ export default class ArtTreeSelect extends React.Component<ArtTreeSelectProps, {
      * @param {ITreeSelectOption} options
      * @returns {React.ReactNode}
      */
-    private renderTree(dataSource: any[], options: ITreeSelectOption): React.ReactNode {
+    private renderTree(dataSource: any[], options: ITreeSelectOption): React.ReactNode | void {
         return (<React.Fragment>
             {
                 dataSource && dataSource.length > 0 ? dataSource.map((item: any) => {

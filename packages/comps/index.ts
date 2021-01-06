@@ -18,4 +18,4 @@ export {default as SelectTree} from './selectTree';
 export {default as Table} from './table';
 export {default as Title} from './title';
 export {default as Upload} from './upload';
-
+export {default as Editor} from './editor';

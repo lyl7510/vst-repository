@@ -1,7 +1,8 @@
 {
   "devServer": {
-    "host": "192.168.137.1",
+    "host": "172.18.255.146",
     "port": 9000,
+    "mock": true,
     "proxy": {
       "/api/admin": {
         "target": "http://172.18.255.251:8888",

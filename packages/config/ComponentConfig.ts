@@ -19,7 +19,7 @@ import {
     DefaultPaginationProps,
     DefaultRadioGroupProps,
     DefaultSelectProps,
-    DefaultTreeSelectProps, DefaultTableProps
+    DefaultTreeSelectProps, DefaultTableProps, DefaultUploadProps
 } from "@packages/config/DefaultPropsConfig";
 
 export interface IDefaultProps {
@@ -45,6 +45,7 @@ export interface IDefaultProps {
     select?: DefaultSelectProps;
     selectTree?: DefaultTreeSelectProps;
     table?: DefaultTableProps;
+    upload?: DefaultUploadProps;
 }
 
 export interface IComponentConfig {

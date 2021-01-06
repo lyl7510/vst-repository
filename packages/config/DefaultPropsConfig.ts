@@ -1,6 +1,8 @@
 import * as React from "react";
 import {TimePickerProps} from "antd/es/time-picker";
 import {RadioGroupButtonStyle} from "antd/es/radio/interface";
+import {UploadListType, UploadType} from "antd/es/upload/interface";
+import {IResult} from "@packages/pages/BaseComponent";
 
 /**
  * button 默认配置
@@ -229,6 +231,19 @@ export interface DefaultTableProps {
     className?: string;
     bordered?: boolean;
     filterIcon?: React.ReactNode | ((filtered: boolean) => React.ReactNode);
+}
+
+export interface DefaultUploadProps {
+    type?: UploadType;
+    multiple?: boolean;
+    action?: string;
+    accept?: string;
+    showUploadList?: boolean;
+    listType?: UploadListType;
+    className?: string;
+    disabled?: boolean;
+    withCredentials?: boolean;
+    dealData?: (data: IResult) => any;
 }
 
 

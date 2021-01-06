@@ -13,6 +13,10 @@ const routers: RouterType[] = [
     {
         path: '/queryPager',
         component: asynComponent(() => import('./queryPager/QueryPagerExample'))
+    },
+    {
+        path: '/form',
+        component: asynComponent(() => import('./form/FormExample'))
     }
 ];
 

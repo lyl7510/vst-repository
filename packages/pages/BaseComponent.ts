@@ -2,16 +2,18 @@ import * as React from 'react';
 import axios from "./../utils/axios";
 import {AxiosRequestConfig} from "axios";
 
-export interface IRequestData {
+interface IRequestData {
     [name: string]: any;
 }
 
-export interface IResult {
+interface IResult {
     returnCode?: number;
     returnMessage?: string;
     bean?: IRequestData;
     beans?: IRequestData[];
 }
+
+export {IRequestData , IResult}
 
 export default class BaseComponent<P, S> extends React.Component<P, S> {
 

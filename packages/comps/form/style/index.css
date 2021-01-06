@@ -2,6 +2,7 @@
   display: block;
   box-sizing: border-box;
   margin-right: 0 !important;
+  min-height: 60px;
 }
 .ant-form-inline .ant-form-item-label,.ant-form-inline .ant-form-item-control{
   box-sizing: border-box;

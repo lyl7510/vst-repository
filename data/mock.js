@@ -1,30 +1,75 @@
-const proxy = {
-    'POST /api/data/pager': {
-        'code': 100,
-        'data': {
-            "pagerNumber": 1,
-            "total": 250,
-            "pageSize": 20,
-            "result": [
-                {
-                    "ID": "1",
-                    "IMAGE": "fda9e6f8-8389-11ea-aad7-fa163e46dddc",
-                    "TITLE": "硅胶易洁花洒淋浴器",
-                    "CONTENT": "因厂家会在没有任何提前通知的情况下更改产品包装、产地或者一些附件，本司不能确保客户收到的货物与商城图片、产地、附件说明完全一致。只能确保为原厂正货！并且保证与当时市场上同样主流新品一致。若本商城没有及时更新，请大家谅解！"
-                },
-                {
-                    "ID": "2",
-                    "IMAGE": "599ea171-8397-11ea-aad7-fa163e46dddc",
-                    "TITLE": "埃森系列浴室柜",
-                    "CONTENT": "商品展示的划横线价格为参考价，并非原价，该价格可能是品牌专柜标价、商品吊牌价或由品牌供应商提供的正品零售价（如厂商指导价、建议零售价等）或该商品在京东平台上曾经展示过的销售价；"
-                }, {
-                    "ID": "3",
-                    "IMAGE": "85365f49-838a-11ea-aad7-fa163e46dddc",
-                    "TITLE": "花洒硬管淋浴器",
-                    "CONTENT": "如无特殊说明，折扣指销售商在原价、或划线价（如品牌专柜标价、商品吊牌价、厂商指导价、厂商建议零售价）等某一价格基础上计算出的优惠比例或优惠金额；如有疑问，您可在购买前联系销售商进行咨询。"
-                }
-            ]
-        }
+const {wrapper} = require('webpack-mocker-api')
+
+const mockerApis = {
+    'POST /api/admin/depart/select': {
+        returnCode: 0,
+        returnMessage: "操作成功",
+        bean: {},
+        beans: [
+            {
+                id: 1,
+                name: "技术部",
+                children: [
+                    {
+                        id: 11,
+                        name: "技术一部"
+                    },
+                    {
+                        id: 12,
+                        name: "技术二部"
+                    }
+                ]
+            },
+            {
+                id: 2,
+                name: "市场部",
+                children: [
+                    {
+                        id: 21,
+                        name: "市场一部"
+                    },
+                    {
+                        id: 22,
+                        name: "市场二部"
+                    }
+                ]
+            }
+        ]
+    },
+    "POST /api/admin/organ/list": {
+        returnCode: 0,
+        returnMessage: "操作成功",
+        bean: {},
+        beans: [
+            {
+                id: 1,
+                name: "南京亚信",
+                children:[
+                    {
+                        id: 11,
+                        name: "南京亚信移动事业部"
+                    },
+                    {
+                        id: 12,
+                        name: "南京亚信联通事业部"
+                    }
+                ]
+            }, {
+                id: 2,
+                name: "北京亚信",
+                children:[
+                    {
+                        id: 21,
+                        name: "北京亚信移动事业部"
+                    },
+                    {
+                        id: 22,
+                        name: "北京亚信联通事业部"
+                    }
+                ]
+            }
+        ]
     }
 }
-module.exports = proxy;
+
+module.exports = wrapper(mockerApis)

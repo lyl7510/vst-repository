@@ -4,6 +4,7 @@ import * as PropTypes from "prop-types";
 import ComponentConfig from "../../config/ComponentConfig";
 
 import "antd/es/cascader/style/index.css";
+import "./style/index.css";
 
 export default class ArtCascader extends React.Component<CascaderProps, {}> {
 

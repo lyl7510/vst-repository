@@ -35,7 +35,7 @@ export default class FormComponent<P, S> extends BaseComponent<P, S> {
      * 提交方法
      * @param {IModel} model
      */
-    protected submit(model: IModel): void {
+    public submit(model: IModel): void {
         console.log(model);
     }
 

@@ -67,14 +67,27 @@ export default class FormItem extends React.Component<FormItemProps, FormItemSta
     }
 
     /**
-     * 子节点发生变化，触发的函数
+     * 子节点发生变化，验证value是否正常
+     * @param value
+     * @param isChange  是否需要改变值，文件上传不需要改变
+     * @protected
      */
-    protected onChange(value: any): void {
+    protected async onChange(value: any, isChange?: boolean): Promise<boolean> {
         if (this.props.name) {
-            this.value = value;
-            this.context.setModel(this.props.name, value);
-            this.validateField();
+            if (isChange) {
+                const result: boolean = await this.validateField(value);
+                if (result) {
+                    this.value = value;
+                    this.context.setModel(this.props.name, value);
+                }
+                return result;
+            } else {
+                this.value = value;
+                this.context.setModel(this.props.name, value);
+                return await this.validateField();
+            }
         }
+        return true;
     }
 
     /**
@@ -145,11 +158,11 @@ export default class FormItem extends React.Component<FormItemProps, FormItemSta
     }
 
     /**
-     * 验证函数
-     * @returns {Promise<boolean>}
+     * 验证内容是否合格
+     * @param value
      */
-    public async validateField(): Promise<boolean> {
-        const result: BooleanString = await validator(this.value, this.props.rule, this.context.model);
+    public async validateField(value?: any): Promise<boolean> {
+        const result: BooleanString = await validator(value ? value : this.value, this.props.rule, this.context.model);
         if (isString(result)) {
             const rst = result as string;
             this.setState({
