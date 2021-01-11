@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as PropTypes from "prop-types";
-import TreeSelect, {TreeSelectProps} from "antd/es/tree-select";
+import TreeSelect from "antd/es/tree-select";
+import {TreeSelectProps} from "antd/es/tree-select/interface";
 import ComponentConfig from "@packages/config/ComponentConfig";
 
 import "antd/es/tree-select/style/index.css";

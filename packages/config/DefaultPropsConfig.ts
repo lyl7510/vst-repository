@@ -1,8 +1,11 @@
 import * as React from "react";
+import { EditorProps } from 'draft-js'
 import {TimePickerProps} from "antd/es/time-picker";
+import {IResult} from "@packages/pages/BaseComponent";
 import {RadioGroupButtonStyle} from "antd/es/radio/interface";
 import {UploadListType, UploadType} from "antd/es/upload/interface";
-import {IResult} from "@packages/pages/BaseComponent";
+
+import {BuiltInControlType, ControlType, ExtendControlType, HooksType, ImageControlType, MediaType} from "braft-editor";
 
 /**
  * button 默认配置
@@ -246,4 +249,20 @@ export interface DefaultUploadProps {
     dealData?: (data: IResult) => any;
 }
 
+export interface DefaultEditorProps {
+    controls?: ControlType[];
+    media?: MediaType;
+    excludeControls?: BuiltInControlType[];
+    extendControls?: ExtendControlType[];
+    imageControls?: ImageControlType[];
+    colors?: string[];
+    fontSizes?: number[];
+    fontFamilies?: { name: string; family: string }[];
+    lineHeights?: number[];
+    textAligns?: ('left' | 'center' | 'right' | 'justify')[];
+    letterSpacings?: number[];
+    emojis?: string[];
+    draftProps?: EditorProps;
+    hooks?: HooksType;
+}
 

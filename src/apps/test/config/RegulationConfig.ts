@@ -24,10 +24,13 @@ const regulationConfig: IRegular = {
         }
         for (let i = 0; i < value.length; i++) {
             if (!/.xlsx$|.xls$/i.test(value[i].name)) {
-                    return false;
+                return false;
             }
         }
         return true;
+    },
+    editor: (value: any, rule: IRule) => {
+        return value.length > rule.max ? false : true;
     }
 };
 

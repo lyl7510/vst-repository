@@ -17,6 +17,7 @@
   "author": "535081884@qq.com",
   "license": "ISC",
   "devDependencies": {
+    "@types/draft-js": "^0.10.44",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.6",
