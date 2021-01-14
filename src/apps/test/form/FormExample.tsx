@@ -56,7 +56,7 @@ export default class FormExample extends FormComponent<{}, FormExampleState> {
                  sex: {validator: "required", message: "性别为空"},
                  interests: {validator: "length", max: 3, min: 1, message: "爱好至少选择一项，最多选择三项"},*/
                 image: [{validator: "xlsxFile", message: "附件只能上传xlsx文件", max: 3}],
-                content: {validator: "editor", message: "内容不能为空", max: 500}
+                /*content: {validator: "editor", message: "内容不能为空", max: 500}*/
             },
             departList: [],
             organList: []

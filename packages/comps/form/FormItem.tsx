@@ -44,7 +44,8 @@ export default class FormItem extends React.Component<FormItemProps, FormItemSta
     };
 
     public static childContextTypes = {
-        onChange: PropTypes.func
+        onChange: PropTypes.func,
+        changeModel: PropTypes.func
     };
 
     public static defaultProps = ComponentConfig.defaultProps.formItem;
@@ -60,9 +61,10 @@ export default class FormItem extends React.Component<FormItemProps, FormItemSta
      * 向下传递对象
      * @returns {{model: IModel; push: (name: string, item: FormItem) => void; setModel: (name: string, value: any) => void}}
      */
-    protected getChildContext(): { onChange: (value: any) => void } {
+    protected getChildContext(): { onChange: (value: any) => void, changeModel: (value: any) => void } {
         return {
-            onChange: this.onChange.bind(this)
+            onChange: this.onChange.bind(this),
+            changeModel: this.changeModel.bind(this)
         };
     }
 
@@ -75,12 +77,7 @@ export default class FormItem extends React.Component<FormItemProps, FormItemSta
     protected async onChange(value: any, isChange?: boolean): Promise<boolean> {
         if (this.props.name) {
             if (isChange) {
-                const result: boolean = await this.validateField(value);
-                if (result) {
-                    this.value = value;
-                    this.context.setModel(this.props.name, value);
-                }
-                return result;
+                return await this.validateField(value);
             } else {
                 this.value = value;
                 this.context.setModel(this.props.name, value);
@@ -89,6 +86,12 @@ export default class FormItem extends React.Component<FormItemProps, FormItemSta
         }
         return true;
     }
+
+    protected changeModel(value: any): void {
+        this.value = value;
+        this.context.setModel(this.props.name, value);
+    }
+
 
     /**
      * 渲染根样式

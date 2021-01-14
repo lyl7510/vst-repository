@@ -1,5 +1,4 @@
 import {IDefaultProps} from "@packages/config/ComponentConfig";
-import {IResult} from "@packages/pages/BaseComponent";
 import axios from "@packages/utils/axios";
 
 const BASE_URL = "http://172.18.255.251:7001/api/admin";
@@ -34,20 +33,13 @@ const defaultComponentConfig: IDefaultProps = {
         maskClosable: false
     },
     input: {
-        allowClear: true
+        allowClear: false
     },
     upload: {
         action: uploadUrl,
-        dealData: function (result: IResult) {
-            if (result.returnCode === 0) {
-                return {
-                    uid: result.bean.id,
-                    name: result.bean.name
-                };
-            } else {
-                return null;
-            }
-        }
+        multiple: true,
+        id: "id",
+        fileName: "file_name"
     },
     editor: {
         controls: [

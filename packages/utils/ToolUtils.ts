@@ -18,6 +18,10 @@ export function isNumber(obj: any): boolean {
     return Object.prototype.toString.call(obj) === '[object Number]';
 }
 
+export function isBoolean(obj:any):boolean{
+    return Object.prototype.toString.call(obj) === '[object Boolean]';
+}
+
 export function isNull(obj: any): boolean {
     return obj === null || obj === undefined || !/\S/g.test(obj);
 }

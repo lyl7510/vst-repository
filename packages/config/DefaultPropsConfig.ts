@@ -1,7 +1,6 @@
 import * as React from "react";
-import { EditorProps } from 'draft-js'
+import {EditorProps} from 'draft-js'
 import {TimePickerProps} from "antd/es/time-picker";
-import {IResult} from "@packages/pages/BaseComponent";
 import {RadioGroupButtonStyle} from "antd/es/radio/interface";
 import {UploadListType, UploadType} from "antd/es/upload/interface";
 
@@ -246,7 +245,8 @@ export interface DefaultUploadProps {
     className?: string;
     disabled?: boolean;
     withCredentials?: boolean;
-    dealData?: (data: IResult) => any;
+    id?: string;
+    fileName?: string;
 }
 
 export interface DefaultEditorProps {
